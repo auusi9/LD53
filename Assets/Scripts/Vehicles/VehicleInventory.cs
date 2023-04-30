@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Building;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Vehicles
         public Dictionary<BuildingRoute, List<Vehicle>> VehiclesInRoute => _vehiclesInRoute;
 
         private Transform _transform;
+
+        public event Action VehiclesUpdated;
 
         private void OnEnable()
         {
@@ -59,6 +62,7 @@ namespace Vehicles
                 {
                     vehicle.SetPath(path);
                     vehicle.StartMoving();
+                    vehicle.SetColor(obj.Color);
                 }
             }
         }
@@ -77,6 +81,7 @@ namespace Vehicles
             
             buildingRoute.NewRouteCreated -= NewPathCreated;
             buildingRoute.RouteReseted -= RouteReseted;
+            VehiclesUpdated?.Invoke();
         }
 
         public void NewBuildingRoute(BuildingRoute route)
@@ -102,8 +107,10 @@ namespace Vehicles
                     {
                         vehicle.SetPath(route.GetPath());
                         vehicle.StartMoving();
+                        vehicle.SetColor(route.Color);
                     }
                 }
+                VehiclesUpdated?.Invoke();
             }
         }
 
@@ -118,6 +125,7 @@ namespace Vehicles
                     vehicle.StopMoving();
                     vehicle.gameObject.SetActive(false);
                 }
+                VehiclesUpdated?.Invoke();
             }
         }
 

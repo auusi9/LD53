@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Building;
 using TMPro;
@@ -13,6 +14,17 @@ namespace UI
         [SerializeField] private VehicleInventory _vehicleInventory;
 
         public void Start()
+        {
+            UpdateText();
+            _vehicleInventory.VehiclesUpdated += UpdateText;
+        }
+
+        private void OnDestroy()
+        {
+            _vehicleInventory.VehiclesUpdated -= UpdateText;
+        }
+
+        private void UpdateText()
         {
             StringBuilder stringBuilder = new StringBuilder();
 

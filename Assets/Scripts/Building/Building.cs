@@ -14,6 +14,7 @@ namespace Building
         [SerializeField] private BuildingRoute _buildingRoutePrefab;
         [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private VehicleInventory _vehicleInventory;
+        [SerializeField] private BuildingInventory _buildingInventory;
 
         private bool _selected = false;
         public event Action<BuildingRoute> NewBuildingRoute;
@@ -22,14 +23,15 @@ namespace Building
         public GraphNode Node => _thisNode;
         public List<BuildingRoute> BuildingRoutes => _buildingRoutes;
 
-        public void Select()
+        private void Start()
         {
-            _selected = true;
+            _buildingInventory.AddBuilding(this);
+            _buildingInventory.EnableBuilding(this);
         }
 
-        public void Deselect()
+        private void OnDestroy()
         {
-            _selected = false;
+            _buildingInventory.RemoveBuilding(this);
         }
 
         public void OnMouseDown()

@@ -100,9 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+  _pickUpPointInventory: {fileID: 11400000, guid: 125ead475923a2345ab96515c9d779ae, type: 2}
   _icon: {fileID: 775882822523433680}
   _background: {fileID: 5806963518313626643}
   _minDistance: 0.001
+  _pickupDistance: 3
+  _checkTime: 0.2
 --- !u!1 &3952580894969325945
 GameObject:
   m_ObjectHideFlags: 0

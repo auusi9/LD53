@@ -34,6 +34,7 @@ namespace Building
             
             _buildingRoutes.Add(route);
             route.SetColor(_colors[_buildingRoutes.Count - 1]);
+            _availableRoutes--;
             RoutesUpdated?.Invoke();
         }
 
@@ -45,6 +46,7 @@ namespace Building
             }
             
             _buildingRoutes.Remove(route);
+            _availableRoutes++;
             RoutesUpdated?.Invoke();
         }
     }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a2f91525a16473f8bec1bcdb6bb4b37, type: 3}
   m_Name: Car
   m_EditorClassIdentifier: 
-  _speed: 1
-  _cargoSpace: 2
-  _sprite: {fileID: 21300000, guid: 0d7eb514922f3c14681ead6cbc162dfc, type: 3}
+  _speed: 3
+  _cargoSpace: 4
+  _sprite: {fileID: 21300000, guid: d68fc61844876f445890b3db8123267e, type: 3}
