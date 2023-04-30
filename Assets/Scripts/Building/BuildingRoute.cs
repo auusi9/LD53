@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using InputHandling;
 using Navigation;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Building
         [SerializeField] private InputHandler _inputHandler;
 
         private bool _navigationCompleted = false;
-        private List<GraphNode> _graphPath = new List<GraphNode>();
+        private List<Route> _graphPath = new List<Route>();
         private EdgePosition _edgePosition;
         private GraphNode _lastNode;
         private bool _selected = false;
@@ -27,7 +28,14 @@ namespace Building
         public void ResetPath()
         {
             _navigationCompleted = false;
+
+            foreach (var path in _graphPath)
+            {
+                path.GraphSubNode.Empty();
+            }
+            
             _graphPath.Clear();
+            _lineRenderer.positionCount = 0;
         }
 
         public void DeselectPath()
@@ -35,8 +43,7 @@ namespace Building
             _selected = false;
             if (!_navigationCompleted)
             {
-                _graphPath.Clear();
-                _lineRenderer.positionCount = 0;
+                ResetPath();
             }
             _inputHandler.FinishedEditingRoute();
         }
@@ -49,7 +56,7 @@ namespace Building
                 {
                     if (_graphPath.Count == 0)
                     {
-                        _graphPath.Add(_building.Node);
+                        _graphPath.Add(new Route(_building.Node));
                         _lastNode = _building.Node;
                     }
                     
@@ -60,34 +67,37 @@ namespace Building
                     if(edgePosition != null)
                         _edgePosition = edgePosition;
 
-                    GraphNode graphNode = _graph.GetNearestNode(mousePosition);
+                    //_edgePosition.Position = mousePosition;
 
-                    if (graphNode == _building.Node && _graphPath.Count > 1 && _lastNode.SiblingNodes.Contains(_building.Node))
-                        _navigationCompleted = true;
-                    
+                    GraphNode graphNode = _edgePosition.GetClosestNode(mousePosition);
+
                     if(graphNode == null)
                         return;
 
-                    if (_lastNode != graphNode)
+                    //if (_lastNode != graphNode)
                     {
                         if (_edgePosition.Contains(graphNode))
                         {
-                            if (_graphPath.Contains(graphNode))
+                            if (_graphPath.Count > 1 && _edgePosition.Contains(_graphPath[^2].GraphNode))
                             {
                                 int i = _graphPath.Count - 1;
-                                while (_graphPath.Count > 0 && _graphPath[i] != graphNode)
-                                {
-                                    _graphPath.RemoveAt(i);
-                                    i--;
-                                }
-                                _lastNode = graphNode;
+                                _graphPath[i].GraphSubNode.Empty();
+                                _graphPath.RemoveAt(i);
+                                _lastNode = _graphPath[^1].GraphNode;
                             }
-                            else if (_lastNode.SiblingNodes.Contains(graphNode))
+                            else if (_lastNode.SiblingNodes.Contains(graphNode) && (_graph.IsPositionInsideNode(mousePosition, graphNode) || !_edgePosition.Contains(_lastNode)))
                             {
-                                _graphPath.Add(graphNode);
+                                _graphPath.Add(new Route(graphNode));
                                 _lastNode = graphNode;
                             }
                         }
+                    }
+
+                    if (graphNode == _building.Node && _graphPath.Count > 1 &&
+                        _lastNode.SiblingNodes.Contains(_building.Node))
+                    {
+                        _navigationCompleted = true;
+                        _graphPath.Add(new Route(_building.Node));
                     }
                 }
                 UpdateLineRenderer();
@@ -98,15 +108,25 @@ namespace Building
         {
             if(_graphPath.Count == 0)
                 return;
+
+            int size = _graphPath.Count;
+
+            if (!_navigationCompleted)
+            {
+                size++; 
+            }
             
-            Vector3[] array = new Vector3[_graphPath.Count + 1];
+            Vector3[] array = new Vector3[size];
             for (var i = 0; i < _graphPath.Count; i++)
             {
                 var node = _graphPath[i];
-                array[i] = node.transform.position;
+                array[i] = node.Position;
             }
-
-            array[^1] = _edgePosition.Position;
+            
+            if (!_navigationCompleted)
+            {
+                array[^1] = _edgePosition.Position;
+            }
 
             _lineRenderer.positionCount = array.Length;
             _lineRenderer.SetPositions(array);
@@ -115,6 +135,37 @@ namespace Building
         public void SetBuilding(Building building)
         {
             _building = building;
+        }
+
+        [Serializable]
+        public class Route
+        {
+            public GraphNode GraphNode;
+            public GraphSubNode GraphSubNode;
+
+            public Vector3 Position => GraphSubNode.transform.position;
+
+            public Route(GraphNode graphNode)
+            {
+                GraphNode = graphNode;
+                GraphSubNode = graphNode.GetAvailablePosition();
+                GraphSubNode.Fill();
+            }
+
+            public override bool Equals(object obj)
+            {
+                return base.Equals(obj);
+            }
+
+            protected bool Equals(Route other)
+            {
+                return Equals(GraphNode) && Equals(GraphSubNode);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(GraphNode, GraphSubNode);
+            }
         }
     }
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Navigation;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GraphNode : MonoBehaviour
 {
@@ -62,5 +64,17 @@ public class GraphNode : MonoBehaviour
     public float GetRadius()
     {
         return _radius;
+    }
+
+    public GraphSubNode GetAvailablePosition()
+    {
+        GraphSubNode availableSubNode = _subNodes.FirstOrDefault(x => x.Available);
+
+        if (availableSubNode == null)
+        {
+            return _subNodes[Random.Range(0, _subNodes.Count)];
+        }
+
+        return availableSubNode;
     }
 }

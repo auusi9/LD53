@@ -102,11 +102,17 @@ public class Graph : ScriptableObject
                 GraphNode nodeEnd = siblingNode;
                 
                 Vector3 pointOnEdge = GetClosestPointOnEdge(position, nodeStart.transform.position, nodeEnd.transform.position, out float distanceInEdge);
-                float distance = Vector3.Distance(position, pointOnEdge);
+
+                if (!IsPointBetweenPoints(nodeStart.transform.position, nodeEnd.transform.position, pointOnEdge))
+                {
+                    continue;
+                }
+                
+                float distance = Vector3.Distance(position, pointOnEdge) ;
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    closestPoint = new EdgePosition(nodeStart, nodeEnd, distanceInEdge /(nodeEnd.transform.position - nodeStart.transform.position).sqrMagnitude, pointOnEdge);
+                    closestPoint = new EdgePosition(nodeStart, nodeEnd, pointOnEdge);
                 }
             }
 
@@ -120,7 +126,23 @@ public class Graph : ScriptableObject
     {
         Vector3 direction = (end - start).normalized;
         distance = Vector3.Dot(position - start, direction);
+        distance = Mathf.Clamp(distance, 0f, Vector3.Distance(start, end));
         return start + direction * distance;
+    }
+    
+    public static bool IsPointBetweenPoints(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        // Calculate the distance between p1 and p2
+        float distance = Vector3.Distance(p1, p2);
+    
+        // Calculate the distance between p1 and p3
+        float distance1 = Vector3.Distance(p1, p3);
+    
+        // Calculate the distance between p2 and p3
+        float distance2 = Vector3.Distance(p2, p3);
+    
+        // Check if the sum of distance1 and distance2 is equal to distance
+        return Mathf.Approximately(distance1 + distance2, distance);
     }
 
     public void RemoveNode(GraphNode graphNode)
