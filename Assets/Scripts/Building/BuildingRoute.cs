@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using InputHandling;
 using Navigation;
+using UI;
 using UnityEngine;
 
 namespace Building
@@ -12,17 +14,49 @@ namespace Building
         [SerializeField] private Graph _graph;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private InputHandler _inputHandler;
+        [SerializeField] private RouteInventory _routeInventory;
 
         private bool _navigationCompleted = false;
         private List<Route> _graphPath = new List<Route>();
         private EdgePosition _edgePosition;
         private GraphNode _lastNode;
         private bool _selected = false;
+        private Color _color;
+
+        public event Action<BuildingRoute> NewRouteCreated;
+        public event Action<BuildingRoute> RouteReseted;
+        public event Action<BuildingRoute> ColorUpdated;
+        
+        public bool IsActive => _navigationCompleted;
+        public Color Color => _color;
+
+        private void Start()
+        {
+            _routeInventory.AddRoute(this);
+        }
+
+        private void OnDestroy()
+        {
+            _routeInventory.RemoveRoute(this);
+        }
+
+        public void SetColor(Color color)
+        {
+            _color = color;
+            float alpha = 1.0f;
+            Gradient gradient = new Gradient();
+            gradient.SetKeys(
+                new GradientColorKey[]
+                    { new GradientColorKey(_color, 0.0f), new GradientColorKey(_color, 1.0f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) });
+            _lineRenderer.colorGradient = gradient;
+            ColorUpdated?.Invoke(this);
+        }
 
         public void SelectPath()
         {
             _selected = true;
-            _inputHandler.EditingRoute();
+            _inputHandler.CreatingRoute();
         }
 
         public void ResetPath()
@@ -36,16 +70,7 @@ namespace Building
             
             _graphPath.Clear();
             _lineRenderer.positionCount = 0;
-        }
-
-        public void DeselectPath()
-        {
-            _selected = false;
-            if (!_navigationCompleted)
-            {
-                ResetPath();
-            }
-            _inputHandler.FinishedEditingRoute();
+            RouteReseted?.Invoke(this);
         }
 
         private void Update()
@@ -98,6 +123,8 @@ namespace Building
                     {
                         _navigationCompleted = true;
                         _graphPath.Add(new Route(_building.Node));
+                        NewRouteCreated?.Invoke(this);
+                        _inputHandler.RouteCreated();
                     }
                 }
                 UpdateLineRenderer();
@@ -135,6 +162,16 @@ namespace Building
         public void SetBuilding(Building building)
         {
             _building = building;
+        }
+
+        public List<Vector3> GetPath()
+        {
+            return _graphPath.Select(x => x.Position).ToList();
+        }
+
+        public void RemoveRoute()
+        {
+            _building.DestroyRoute(this);
         }
 
         [Serializable]
