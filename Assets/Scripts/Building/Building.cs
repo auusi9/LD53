@@ -10,13 +10,10 @@ namespace Building
     public class Building : MonoBehaviour
     {
         [SerializeField] private GraphNode _thisNode;
-        [SerializeField] private List<BuildingRoute> _buildingRoutes;
-        [SerializeField] private BuildingRoute _buildingRoutePrefab;
         [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private BuildingInventory _buildingInventory;
         [SerializeField] private bool _enableOnStart;
-        [SerializeField] private float _range = 10f;
 
         public event Action<BuildingRoute> NewBuildingRoute;
         public event Action<BuildingRoute> BuildingRouteDestroyed;
@@ -25,10 +22,8 @@ namespace Building
 
         public bool Active => _enabled;
 
-        public float Range => _range;
         
         public GraphNode Node => _thisNode;
-        public List<BuildingRoute> BuildingRoutes => _buildingRoutes;
 
         private void Start()
         {
@@ -50,12 +45,11 @@ namespace Building
             _inputHandler.BuildingSelected(this);
         }
 
-        public BuildingRoute CreateNewRoute()
+        public BuildingRoute CreateNewRoute(BuildingRoute buildingRoute)
         {
-            BuildingRoute buildingRoute = Instantiate(_buildingRoutePrefab, transform);
+            buildingRoute.transform.SetParent(transform);
+            buildingRoute.gameObject.SetActive(true);
             buildingRoute.SetBuilding(this);
-            
-            _buildingRoutes.Add(buildingRoute);
             buildingRoute.SelectPath();
             NewBuildingRoute?.Invoke(buildingRoute);
             _vehicleInventory.NewBuildingRoute(buildingRoute);
@@ -67,7 +61,6 @@ namespace Building
         {
             BuildingRouteDestroyed?.Invoke(route);
             _vehicleInventory.BuildingRouteDestroyed(route);
-            Destroy(route.gameObject);
         }
 
         public void Enabled()

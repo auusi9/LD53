@@ -10,12 +10,19 @@ namespace Vehicles
     public class VehicleInventory : ScriptableObject
     {
         [SerializeField] private List<VehicleType> _vehicleTypes;
-        [SerializeField] private Vehicle _vehiclePrefab;
+        [SerializeField] private Vehicle _vehiclePrefabPerson;
+        [SerializeField] private Vehicle _vehiclePrefabScooter;
+        [SerializeField] private Vehicle _vehiclePrefabVan;
+
+        public VehicleType PersonType => _vehicleTypes[0];
+        public VehicleType ScooterType => _vehicleTypes[1];
+        public VehicleType VanType => _vehicleTypes[2];
 
         private Dictionary<VehicleType, List<Vehicle>> _vehicles = new Dictionary<VehicleType, List<Vehicle>>();
         private Dictionary<BuildingRoute, List<Vehicle>> _vehiclesInRoute = new Dictionary<BuildingRoute, List<Vehicle>>();
 
         public Dictionary<VehicleType, List<Vehicle>> AvailableVehicles => _vehicles;
+        public Dictionary<VehicleType, int> TotalVehicles { get; private set; } = new Dictionary<VehicleType, int>();
         public Dictionary<BuildingRoute, List<Vehicle>> VehiclesInRoute => _vehiclesInRoute;
 
         private Transform _transform;
@@ -26,10 +33,12 @@ namespace Vehicles
         {
             _vehicles.Clear();
             _vehiclesInRoute.Clear();
+            TotalVehicles.Clear();
             
             foreach (var vehicleType in _vehicleTypes)
             {
                 _vehicles.Add(vehicleType, new List<Vehicle>());
+                TotalVehicles.Add(vehicleType, 0);
             }
         }
 
@@ -37,9 +46,27 @@ namespace Vehicles
         {
             foreach (var startingVehicle in vehicleTypes)
             {
-                _vehicles[startingVehicle].Add(Instantiate(_vehiclePrefab, _transform));
+                _vehicles[startingVehicle].Add(Instantiate(GetPrefabByType(startingVehicle), _transform));
                 _vehicles[startingVehicle][^1].SetType(startingVehicle);
                 _vehicles[startingVehicle][^1].gameObject.SetActive(false);
+                TotalVehicles[startingVehicle]++;
+            }
+            VehiclesUpdated?.Invoke();
+        }
+
+        private Vehicle GetPrefabByType(VehicleType type)
+        {
+            if (type == _vehicleTypes[0])
+            {
+                return _vehiclePrefabPerson;
+            }
+            else if (type == _vehicleTypes[1])
+            {
+                return _vehiclePrefabScooter;
+            }
+            else
+            {
+                return _vehiclePrefabVan;
             }
         }
         
@@ -65,6 +92,8 @@ namespace Vehicles
                     vehicle.StartMoving();
                     vehicle.SetColor(obj.Color);
                 }
+                
+                VehiclesUpdated?.Invoke();
             }
         }
 
@@ -87,6 +116,9 @@ namespace Vehicles
 
         public void NewBuildingRoute(BuildingRoute route)
         {
+            if(_vehiclesInRoute.ContainsKey(route))
+                return;
+            
             _vehiclesInRoute.Add(route, new List<Vehicle>());
             route.NewRouteCreated += NewPathCreated;
             route.RouteReseted += RouteReseted;

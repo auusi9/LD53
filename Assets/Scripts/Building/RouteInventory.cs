@@ -12,14 +12,13 @@ namespace Building
         [SerializeField] private Color[] _colors;
 
         private List<BuildingRoute> _buildingRoutes = new List<BuildingRoute>();
-
+        private RouteSpawner _routeSpawner;
+        
         public event Action RoutesUpdated;
         public List<BuildingRoute> Routes => _buildingRoutes;
 
         private int _availableRoutes = 0;
-
-        public int TotalRoutes => _buildingRoutes.Count + _availableRoutes;
-
+        
         public int MaxRoutes => _maxRoutes;
 
         private void OnEnable()
@@ -37,7 +36,7 @@ namespace Building
             
             _buildingRoutes.Add(route);
             route.SetColor(_colors[_buildingRoutes.Count - 1]);
-            _availableRoutes--;
+            route.gameObject.SetActive(false);
             RoutesUpdated?.Invoke();
         }
 
@@ -49,13 +48,27 @@ namespace Building
             }
             
             _buildingRoutes.Remove(route);
-            _availableRoutes++;
             RoutesUpdated?.Invoke();
         }
 
         public Color GetColor(int i)
         {
             return _colors[i];
+        }
+
+        public void SetSpawner(RouteSpawner routeSpawner)
+        {
+            _routeSpawner = routeSpawner;
+            for (int i = 0; i < _availableRoutes; i++)
+            {
+                _routeSpawner.GetBuildingRoute();
+            }
+        }
+
+        public void ReturnRoute(BuildingRoute buildingRoute)
+        {
+            buildingRoute.transform.SetParent(_routeSpawner.transform);
+            buildingRoute.gameObject.SetActive(false);
         }
     }
 }

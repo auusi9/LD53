@@ -7,8 +7,10 @@ namespace InputHandling
     [CreateAssetMenu(order = 0, fileName = "InputHandler", menuName = "Input/InputHandler")]
     public class InputHandler : ScriptableObject
     {
+        [SerializeField] private RouteInventory _routeInventory;
         private bool _creatingRoute = false;
         private BuildingRoute _editingRoute = null;
+        private bool _routeCreated = false;
         
         private void OnEnable()
         {
@@ -18,9 +20,10 @@ namespace InputHandling
 
         public void BuildingSelected(Building.Building building)
         {
-            if (_creatingRoute)
+            if (_creatingRoute && _editingRoute != null && !_routeCreated)
             {
-                _editingRoute = building.CreateNewRoute();
+                building.CreateNewRoute(_editingRoute);
+                _routeCreated = true;
             }
         }
 
@@ -29,12 +32,18 @@ namespace InputHandling
             if (_editingRoute)
             {
                 _editingRoute.RemoveRoute();
+                _editingRoute = null;
             }
         }
         
-        public void CreatingRoute()
+        public void CreatingRoute(BuildingRoute buildingRoute)
         {
+            if(_editingRoute != null)
+                CancelCreatingRoute();
+            
             _creatingRoute = true;
+            _editingRoute = buildingRoute;
+            _routeCreated = false;
         }
 
         public void RouteCreated()

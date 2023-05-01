@@ -32,6 +32,7 @@ namespace Building
         public event Action<BuildingRoute> ColorUpdated;
         
         public bool IsActive => _navigationCompleted;
+        public bool Available => _building == null;
         public Color Color => _color;
         private int _index = 0;
 
@@ -44,12 +45,6 @@ namespace Building
         private void OnDestroy()
         {
             _routeInventory.RemoveRoute(this);
-
-            if (_building != null)
-            {
-                GraphSubNode graphSubNode = _building.Node.GetPosition(_index);
-                graphSubNode.Empty();
-            }
         }
 
         public void SetColor(Color color)
@@ -70,7 +65,6 @@ namespace Building
         public void SelectPath()
         {
             _selected = true;
-            _inputHandler.CreatingRoute();
         }
 
         public void ResetPath()
@@ -79,6 +73,7 @@ namespace Building
             
             _graphPath.Clear();
             _lineRenderer.positionCount = 0;
+            _worldLine.line.Clear();
             RouteReseted?.Invoke(this);
         }
 
@@ -201,7 +196,18 @@ namespace Building
 
         public void RemoveRoute()
         {
-            _building.DestroyRoute(this);
+            if (_building != null)
+            {
+                GraphSubNode graphSubNode = _building.Node.GetPosition(_index);
+                graphSubNode.Empty();
+            }
+            _routeInventory.ReturnRoute(this);
+            ResetPath();
+            if (_building != null)
+            {
+                _building.DestroyRoute(this);
+                _building = null;
+            }
         }
 
         [Serializable]

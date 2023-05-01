@@ -12,6 +12,7 @@ namespace UI
     {
         [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
         [SerializeField] private VehicleInventory _vehicleInventory;
+        [SerializeField] private VehicleType _vehicleType;
 
         public void Start()
         {
@@ -27,13 +28,11 @@ namespace UI
         private void UpdateText()
         {
             StringBuilder stringBuilder = new StringBuilder();
+            
+            int availableVehicles = _vehicleInventory.AvailableVehicles[_vehicleType].Count;
+            int totalVehicles = _vehicleInventory.TotalVehicles[_vehicleType];
 
-            foreach (var vehicle in _vehicleInventory.AvailableVehicles)
-            {
-                stringBuilder.Append($"Vehicle: {vehicle.Key.name} -> {vehicle.Value.Count}");
-            }
-
-            _textMeshProUGUI.text = stringBuilder.ToString();
+            _textMeshProUGUI.text = stringBuilder.Append(availableVehicles).Append("/").Append(totalVehicles).ToString();
         }
     }
 }

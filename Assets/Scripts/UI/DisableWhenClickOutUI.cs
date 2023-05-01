@@ -32,7 +32,7 @@ namespace UI
                 !RectTransformUtility.RectangleContainsScreenPoint(
                     _objectReference.transform as RectTransform, 
                     Input.mousePosition, 
-                    Camera.main)) {
+                    null)) {
                 gameObject.SetActive(false);
             }
         }

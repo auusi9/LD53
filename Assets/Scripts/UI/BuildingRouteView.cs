@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Building;
 using InputHandling;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Vehicles;
@@ -22,6 +24,9 @@ namespace UI
         [SerializeField] private VehicleButton _removePerson;
         [SerializeField] private VehicleButton _removeScooter;
         [SerializeField] private VehicleButton _removeVan;
+        [SerializeField] private TextMeshProUGUI _personCountText;
+        [SerializeField] private TextMeshProUGUI _scooterCountText;
+        [SerializeField] private TextMeshProUGUI _vanCountText;
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private InputHandler _inputHandler;
 
@@ -37,18 +42,31 @@ namespace UI
             _removePerson.VehicleButtonClicked += RemoveVehicleClicked;
             _removeScooter.VehicleButtonClicked += RemoveVehicleClicked;
             _removeVan.VehicleButtonClicked += RemoveVehicleClicked;
+            _vehicleInventory.VehiclesUpdated += VehiclesUpdated;
+        }
+
+        private void VehiclesUpdated()
+        {
+            if(_buildingRoute == null || !_vehicleInventory.VehiclesInRoute.ContainsKey(_buildingRoute))
+                return;
+            
+            List<Vehicle> vehicles = _vehicleInventory.VehiclesInRoute[_buildingRoute];
+            _personCountText.text = vehicles.Count(x => x.VehicleType == _vehicleInventory.PersonType).ToString();
+            _scooterCountText.text = vehicles.Count(x => x.VehicleType == _vehicleInventory.ScooterType).ToString();
+            _vanCountText.text = vehicles.Count(x => x.VehicleType == _vehicleInventory.VanType).ToString();
         }
 
         private void OnDestroy()
         {
             _removeRoute.onClick.RemoveListener(ResetPath);
-            _routeButton.onClick.RemoveListener(ResetPath);
+            _routeButton.onClick.RemoveListener(RouteClicked);
             _addPerson.VehicleButtonClicked -= AddVehicleClicked;
             _addScooter.VehicleButtonClicked -= AddVehicleClicked;
             _addVan.VehicleButtonClicked -= AddVehicleClicked;
             _removePerson.VehicleButtonClicked -= RemoveVehicleClicked;
             _removeScooter.VehicleButtonClicked -= RemoveVehicleClicked;
             _removeVan.VehicleButtonClicked -= RemoveVehicleClicked;
+            _vehicleInventory.VehiclesUpdated -= VehiclesUpdated;
         }
 
         private void AddVehicleClicked(VehicleType vehicleType)
@@ -64,32 +82,33 @@ namespace UI
         private void ResetPath()
         {
             _buildingRoute.RemoveRoute();
+            _subMenu.SetActive(false);
+            _removeRoute.gameObject.SetActive(false);
         }
 
-        public void UpdateRoute(BuildingRoute buildingRoute, bool available, Color color)
+        public void UpdateRoute(BuildingRoute buildingRoute)
         {
             _buildingRoute = buildingRoute;
-            _background.color = color;
 
-            if (buildingRoute == null && !available)
+            if (buildingRoute == null)
             {
-                _routeButton.gameObject.SetActive(false);
                 _background.gameObject.SetActive(false);
                 _routeDisabled.SetActive(true);
                 _routeEnabled.SetActive(false);
             }
-            else if(available && buildingRoute == null)
+            else if(buildingRoute.Available)
             {
                 _routeDisabled.SetActive(false);
                 _routeEnabled.SetActive(true);
+                _background.color = buildingRoute.Color;
             }
             else
             {
                 _routeDisabled.SetActive(false);
                 _routeEnabled.SetActive(true);
                 _background.color = buildingRoute.Color;
-                _routeButton.gameObject.SetActive(true);
                 _background.gameObject.SetActive(true);
+                VehiclesUpdated();
             }
         }
 
@@ -97,7 +116,10 @@ namespace UI
         {
             if (_buildingRoute == null)
             {
-                _inputHandler.CreatingRoute();
+            }
+            else if (_buildingRoute.Available)
+            {
+                _inputHandler.CreatingRoute(_buildingRoute);
             }
             else
             {

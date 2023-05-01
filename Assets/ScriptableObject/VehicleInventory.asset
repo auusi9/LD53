@@ -16,4 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
   - {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
   - {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
-  _vehiclePrefab: {fileID: 3885350295150063537, guid: ab426ecc7fc244e4d9912ee098043083, type: 3}
+  _vehiclePrefabPerson: {fileID: 2905625444070695937, guid: 9ce9764c03bcb884f89a42d225766831, type: 3}
+  _vehiclePrefabScooter: {fileID: 2905625444070695937, guid: bbc5a5fddb94220448ef9f10f342fb82, type: 3}
+  _vehiclePrefabVan: {fileID: 2905625444070695937, guid: d3224845816519543ab2b806e73807b2, type: 3}

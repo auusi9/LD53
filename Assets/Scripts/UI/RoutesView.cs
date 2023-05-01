@@ -46,11 +46,11 @@ namespace UI
 
                 if (i < buildingRoute.Count)
                 {
-                    _buildingRouteViews[i].UpdateRoute(buildingRoute[i], true, _routeInventory.GetColor(i));
+                    _buildingRouteViews[i].UpdateRoute(buildingRoute[i]);
                 }
                 else
                 {
-                    _buildingRouteViews[i].UpdateRoute(null, _routeInventory.TotalRoutes > i, _routeInventory.GetColor(i));
+                    _buildingRouteViews[i].UpdateRoute(null);
                 }
             }
         }

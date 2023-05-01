@@ -1028,14 +1028,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4704756856960230943, guid: 38f0d1a3e3cfdc142bdc6e42139c571a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704756856985954513, guid: 38f0d1a3e3cfdc142bdc6e42139c571a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4704756857980557020, guid: 38f0d1a3e3cfdc142bdc6e42139c571a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

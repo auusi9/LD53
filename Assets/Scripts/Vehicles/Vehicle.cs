@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Building;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Vehicles
@@ -10,8 +11,8 @@ namespace Vehicles
     {
         [SerializeField] private VehicleType _vehicleType;
         [SerializeField] private PickUpPointInventory _pickUpPointInventory;
-        [SerializeField] private SpriteRenderer _icon;
         [SerializeField] private SpriteRenderer _background;
+        [SerializeField] private SpriteRenderer[] _packages;
         [SerializeField] private float _minDistance = 0.001f;
         [SerializeField] private float _pickupDistance = 1f;
         [SerializeField] private float _checkTime = 0.5f;
@@ -25,24 +26,19 @@ namespace Vehicles
         public VehicleType VehicleType => _vehicleType;
 
         public event Action PathFinished;
-
-        private void Awake()
-        {
-            if (_vehicleType != null)
-            {
-                _icon.sprite = _vehicleType.Sprite;
-            }
-        }
-
+        
         public void SetType(VehicleType vehicleType)
         {
             _vehicleType = vehicleType;
-            _icon.sprite = vehicleType.Sprite;
         }
 
         public void SetColor(Color color)
         {
             _background.color = color;
+            foreach (var package in _packages)
+            {
+                package.color = color;
+            }
         }
 
         public void SetPath(List<Vector3> path)
@@ -59,8 +55,7 @@ namespace Vehicles
         {
             _moving = true;
             transform.position = _path[0];
-            _currentCargo = _vehicleType.CargoSpace;
-            _currentTargetIndex = 0;
+            ResetPath();
         }
 
         private void Update()
@@ -79,6 +74,8 @@ namespace Vehicles
                     {
                         pickUpPoint.DropPickup();
                         _currentCargo--;
+                        if(_currentCargo >= 0)
+                            _packages[_currentCargo].gameObject.SetActive(false);
                     }
                 }
 
@@ -96,10 +93,20 @@ namespace Vehicles
 
                 if (_currentTargetIndex >= _path.Count)
                 {
-                    _currentTargetIndex = 0;
-                    _currentCargo = _vehicleType.CargoSpace;
+                    ResetPath();
                     PathFinished?.Invoke();
                 }
+            }
+        }
+
+        private void ResetPath()
+        {
+            _currentTargetIndex = 0;
+            _currentCargo = _vehicleType.CargoSpace;
+            for (var i = 0; i < _currentCargo; i++)
+            {
+                var package = _packages[i];
+                package.gameObject.SetActive(true);
             }
         }
     }
