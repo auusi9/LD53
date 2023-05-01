@@ -5,7 +5,7 @@ namespace Utils
 {
     public class MusicSingleton : MonoBehaviour
     {
-        private MusicSingleton _musicSingleton;
+        private static MusicSingleton _musicSingleton;
 
         private void Awake()
         {

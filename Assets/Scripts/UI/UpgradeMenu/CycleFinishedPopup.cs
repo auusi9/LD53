@@ -31,6 +31,7 @@ namespace UI.UpgradeMenu
 
         private void RewardGiven()
         {
+            FXSingleton.Get().PlayPressButton();
             gameObject.SetActive(false);
         }
 
@@ -46,6 +47,7 @@ namespace UI.UpgradeMenu
         private void CycleFinished()
         {
             gameObject.SetActive(true);
+            FXSingleton.Get().PlayAchievementSound();
 
             RewardOptions rewardOptions = _rewardsConfiguration.GetRewardOptions();
             
