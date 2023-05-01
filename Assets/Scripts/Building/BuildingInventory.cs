@@ -35,12 +35,52 @@ namespace Building
         public void EnableBuilding(Building building)
         {
             _enabledBuildings.Add(building);
+            building.Enabled();
             _randomNumberGenerator.Add(_enabledBuildings.Count, _enabledBuildings.Count - 1);
         }
 
         public Building GetRandomBuilding()
         {
             return _enabledBuildings[_randomNumberGenerator.NextItem()];
+        }
+
+        public void EnableBuildingNextToLast()
+        {
+            Building building;
+            if (_enabledBuildings.Count == 0)
+                building = _buildings[0];
+            else
+                building = _enabledBuildings[0];
+
+            if (building != null)
+            {
+                Building toActivate = GetNearestBuilding(building.transform.position);
+                
+                if(toActivate)
+                    EnableBuilding(toActivate);
+            }
+        }
+        
+        private Building GetNearestBuilding(Vector3 searchPosition)
+        {
+            Building nearestBuilding = null;
+            float nearestDistance = Mathf.Infinity;
+
+            foreach (Building building in _buildings)
+            {
+                if(building.Active)
+                    continue;
+                
+                float distance = (searchPosition - building.transform.position).sqrMagnitude;
+
+                if (distance < nearestDistance)
+                {
+                    nearestBuilding = building;
+                    nearestDistance = distance;
+                }
+            }
+
+            return nearestBuilding;
         }
     }
 }

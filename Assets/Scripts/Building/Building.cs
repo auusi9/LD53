@@ -15,18 +15,23 @@ namespace Building
         [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private BuildingInventory _buildingInventory;
+        [SerializeField] private bool _enableOnStart;
 
-        private bool _selected = false;
         public event Action<BuildingRoute> NewBuildingRoute;
         public event Action<BuildingRoute> BuildingRouteDestroyed;
 
+        private bool _enabled = false;
+
+        public bool Active => _enabled;
+        
         public GraphNode Node => _thisNode;
         public List<BuildingRoute> BuildingRoutes => _buildingRoutes;
 
         private void Start()
         {
             _buildingInventory.AddBuilding(this);
-            _buildingInventory.EnableBuilding(this);
+            if(_enableOnStart)
+                _buildingInventory.EnableBuilding(this);
         }
 
         private void OnDestroy()
@@ -36,7 +41,7 @@ namespace Building
 
         public void OnMouseDown()
         {
-            if(_selected)
+            if(!_enabled)
                 return;
             
             _inputHandler.BuildingSelected(this);
@@ -60,6 +65,11 @@ namespace Building
             BuildingRouteDestroyed?.Invoke(route);
             _vehicleInventory.BuildingRouteDestroyed(route);
             Destroy(route.gameObject);
+        }
+
+        public void Enabled()
+        {
+            _enabled = true;
         }
     }
 }
