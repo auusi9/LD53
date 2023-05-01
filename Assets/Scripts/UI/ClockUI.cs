@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using Image = UnityEngine.UI.Image;
 
 namespace UI
 {
     public class ClockUI : MonoBehaviour
     {
         [SerializeField] private CycleProgress _cycleProgress;
-        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private Image _fillImage;
         
         private void Update()
         {
-            _rectTransform.localRotation = Quaternion.Euler(0, 0, _cycleProgress.Progress * -360);
+            _fillImage.fillAmount = 1 - _cycleProgress.Progress;
         }
     }
 }
