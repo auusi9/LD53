@@ -8,40 +8,40 @@ namespace UI
     public class TimeUI : MonoBehaviour
     {
         [SerializeField] private TimeManager _timeManager;
-        [SerializeField] private Outline _pauseSelected;
-        [SerializeField] private Outline _playSelected;
-        [SerializeField] private Outline _forwardSelected;
+        [SerializeField] private Image _pauseImage;
+        [SerializeField] private Image _playImage;
+        [SerializeField] private Image _forwardImage;
+        [SerializeField] private Color _selectedColor;
+        [SerializeField] private Color _deactivatedColor;
 
         private void Start()
         {
-            _pauseSelected.enabled = (false);
-            _playSelected.enabled = (true);
-            _forwardSelected.enabled = (false);
+            ResumeGame();
         }
 
         public void PauseGame()
         {
             _timeManager.PauseGame(GetHashCode());
-            _pauseSelected.enabled = (true);
-            _playSelected.enabled = (false);
-            _forwardSelected.enabled = (false);
+            _pauseImage.color = _selectedColor;
+            _playImage.color = _deactivatedColor;
+            _forwardImage.color = _deactivatedColor;
         }
 
         public void ResumeGame()
         {
             _timeManager.SetDefaultSpeed();
             _timeManager.ResumeGame(GetHashCode());
-            _pauseSelected.enabled = (false);
-            _playSelected.enabled = (true);
-            _forwardSelected.enabled = (false);
+            _pauseImage.color = _deactivatedColor;
+            _playImage.color = _selectedColor;
+            _forwardImage.color = _deactivatedColor;
         }
 
         public void SpeedGame()
         {
             _timeManager.NextSpeed();
-            _pauseSelected.enabled = (false);
-            _playSelected.enabled = (false);
-            _forwardSelected.enabled = (true);
+            _pauseImage.color = _deactivatedColor;
+            _playImage.color = _deactivatedColor;
+            _forwardImage.color = _selectedColor;
         }
     }
 }
