@@ -47,6 +47,11 @@ namespace Building
             return _enabledBuildings[_randomNumberGenerator.NextItem()];
         }
 
+        public Building GetRandomBuildingAll()
+        {
+            return _buildings[Random.Range(0, _buildings.Count)];
+        }
+        
         public void EnableBuildingNextToLast()
         {
             Building building;

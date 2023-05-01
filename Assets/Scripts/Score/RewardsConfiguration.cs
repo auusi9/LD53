@@ -17,6 +17,7 @@ namespace Score
         [SerializeField] private RouteInventory _routeInventory;
 
         private int _cycle = 0;
+        public int CurrentCycle => _cycle;
 
         private void OnEnable()
         {

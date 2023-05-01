@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Events;
+using Score;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,10 +11,13 @@ namespace Building
     {
         [SerializeField] private PickUpPointInventory _pickUpPointInventory;
         [SerializeField] private BuildingInventory _buildingInventory;
+        [SerializeField] private RewardsConfiguration _rewardsConfiguration;
         [SerializeField] private BaseEvent _cycleFinished;
+        [SerializeField] private float _firstPickupPoint = 10f;
         [SerializeField] private float _minTimePickupPoint = 10f;
         [SerializeField] private float _maxTimePickupPoint = 30f;
         [SerializeField] private float _timeToEnableBuilding = 10f;
+        [SerializeField] private int _postOfficeCycle = 4;
 
         private float _currentTime = 0f;
         private float _timeNextPickup = 0f;
@@ -21,7 +25,15 @@ namespace Building
         private void Start()
         {
             _cycleFinished.Register(CycleFinished);
-            _timeNextPickup = Random.Range(_minTimePickupPoint, _maxTimePickupPoint);
+            _timeNextPickup = _firstPickupPoint;
+            StartCoroutine(EnableFirstBuilding());
+        }
+
+        private IEnumerator EnableFirstBuilding()
+        {
+            yield return 0;
+            Building building = _buildingInventory.GetRandomBuildingAll();
+            _buildingInventory.EnableBuilding(building);
         }
 
         private void OnDestroy()
@@ -31,7 +43,10 @@ namespace Building
 
         private void CycleFinished()
         {
-            StartCoroutine(EnableBuildingAfterTime());
+            if (_rewardsConfiguration.CurrentCycle % _postOfficeCycle == 0)
+            {
+                StartCoroutine(EnableBuildingAfterTime());
+            }
         }
 
         IEnumerator EnableBuildingAfterTime()

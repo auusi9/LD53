@@ -104,6 +104,8 @@ namespace Vehicles
                 foreach (var vehicle in _vehiclesInRoute[buildingRoute])
                 {
                     _vehicles[vehicle.VehicleType].Add(vehicle);
+                    vehicle.StopMoving();
+                    vehicle.gameObject.SetActive(false);
                 }
 
                 _vehiclesInRoute.Remove(buildingRoute);

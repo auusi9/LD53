@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Score;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +11,9 @@ namespace Building
     public class PickUpPointInventory : ScriptableObject
     {
         [SerializeField] private float _range = 10f;
+        [SerializeField] private float _rangeXCycle = 2f;
         [SerializeField] private BuildingInventory _buildingInventory;
+        [SerializeField] private RewardsConfiguration _rewardsConfiguration;
 
         private List<PickUpPoint> _allPickupPoints = new List<PickUpPoint>();
         private List<PickUpPoint> _enabledPickupPoints = new List<PickUpPoint>();
@@ -42,8 +45,8 @@ namespace Building
         public void EnableRandomPickUpPoint()
         {
             Building building = _buildingInventory.GetRandomBuilding();
-
-            PickUpPoint[] pickUpPoints = _allPickupPoints.Where(x => !x.gameObject.activeInHierarchy && (building.transform.position - x.transform.position).sqrMagnitude < _range).ToArray();
+            float totalRange = _range + (_rangeXCycle * _rewardsConfiguration.CurrentCycle);
+            PickUpPoint[] pickUpPoints = _allPickupPoints.Where(x => !x.gameObject.activeInHierarchy && (building.transform.position - x.transform.position).sqrMagnitude < totalRange).ToArray();
 
             if (pickUpPoints.Length > 0)
             {

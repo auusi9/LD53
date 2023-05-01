@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Building;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace InputHandling
     [CreateAssetMenu(order = 0, fileName = "InputHandler", menuName = "Input/InputHandler")]
     public class InputHandler : ScriptableObject
     {
+        [SerializeField] private RouteInventory _routeInventory;
+        
         private bool _creatingRoute = false;
         private BuildingRoute _editingRoute = null;
         private bool _routeCreated = false;
@@ -23,6 +26,16 @@ namespace InputHandling
             {
                 building.CreateNewRoute(_editingRoute);
                 _routeCreated = true;
+            }
+
+            if (!_creatingRoute)
+            {
+                var route = _routeInventory.Routes.FirstOrDefault(x => x.Available);
+                if (route != null)
+                {
+                    CreatingRoute(route);
+                    BuildingSelected(building);
+                }
             }
         }
 

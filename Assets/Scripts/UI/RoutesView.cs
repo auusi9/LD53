@@ -42,6 +42,9 @@ namespace UI
     
             for (int i = 0; i < _buildingRouteViews.Count; i++)
             {
+                if(_routeInventory.MaxRoutes <= i)
+                    continue;
+                
                 _buildingRouteViews[i].gameObject.SetActive(true);
 
                 if (i < buildingRoute.Count)

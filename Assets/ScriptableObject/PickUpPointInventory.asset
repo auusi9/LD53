@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: PickUpPointInventory
   m_EditorClassIdentifier: 
   _range: 10
+  _rangeXCycle: 2
   _buildingInventory: {fileID: 11400000, guid: 860699fd46a6d54418c6a0a1eb5deae3, type: 2}
+  _rewardsConfiguration: {fileID: 11400000, guid: 9fe4ccde55eab9f428ea4d5d365fd15f, type: 2}
