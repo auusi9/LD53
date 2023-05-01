@@ -8,7 +8,8 @@ namespace Score
     {
         private int _score;
         private int _failedPickups;
-        
+        public int Score => _score;
+
         private void OnEnable()
         {
             _score = 0;

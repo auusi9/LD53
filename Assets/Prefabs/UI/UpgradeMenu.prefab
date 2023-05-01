@@ -377,6 +377,8 @@ MonoBehaviour:
   _personReward: {fileID: 6988373955324373758}
   _scooterReward: {fileID: 599239197512139662}
   _vanReward: {fileID: 6995667619803990100}
+  _weekText: {fileID: 3957687717958860427}
+  _weekString: WEEK {0}
   _rewardsConfiguration: {fileID: 11400000, guid: 9fe4ccde55eab9f428ea4d5d365fd15f, type: 2}
 --- !u!225 &7328831495124222146
 CanvasGroup:

@@ -1,5 +1,6 @@
 ﻿using Events;
 using Score;
+using TMPro;
 using UnityEngine;
 using Utils;
 using Vehicles;
@@ -14,6 +15,8 @@ namespace UI.UpgradeMenu
         [SerializeField] private RewardButton _personReward;
         [SerializeField] private RewardButton _scooterReward;
         [SerializeField] private RewardButton _vanReward;
+        [SerializeField] private TextMeshProUGUI _weekText;
+        [SerializeField] private string _weekString = "Week {0}";
         [SerializeField] private RewardsConfiguration _rewardsConfiguration;
         
         private void Start()
@@ -45,7 +48,7 @@ namespace UI.UpgradeMenu
             gameObject.SetActive(true);
 
             RewardOptions rewardOptions = _rewardsConfiguration.GetRewardOptions();
-
+            
             _lineReward.gameObject.SetActive(rewardOptions.IncludeRoute);
             _personReward.gameObject.SetActive(false);
             _scooterReward.gameObject.SetActive(false);
@@ -76,6 +79,7 @@ namespace UI.UpgradeMenu
         private void OnEnable()
         {
             _timeManager.PauseGame(GetHashCode());
+            _weekText.text = string.Format(_weekString, _rewardsConfiguration.CurrentCycle);
         }
 
         private void OnDisable()
