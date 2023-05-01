@@ -35642,6 +35642,10 @@ PrefabInstance:
       value: PickupHandler
       objectReference: {fileID: 0}
     - target: {fileID: 3802776265381678719, guid: f03b1d34a94fb904cbcd0b39ff8eec94, type: 3}
+      propertyPath: _firstPickupPoint
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802776265381678719, guid: f03b1d34a94fb904cbcd0b39ff8eec94, type: 3}
       propertyPath: _maxTimePickupPoint
       value: 35
       objectReference: {fileID: 0}
