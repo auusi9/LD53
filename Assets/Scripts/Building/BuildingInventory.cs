@@ -1,17 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Events;
 using UnityEngine;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Building
 {
     [CreateAssetMenu(order = 0, fileName = "BuildingInventory", menuName = "Building/BuildingInventory")]
     public class BuildingInventory : ScriptableObject
     {
+        [SerializeField] private BaseEvent _restartGame;
+
         private List<Building> _buildings = new List<Building>();
         private List<Building> _enabledBuildings = new List<Building>();
         private RandomNumberGenerator<int> _randomNumberGenerator = new RandomNumberGenerator<int>();
 
         private void OnEnable()
+        {
+            _buildings.Clear();
+            _enabledBuildings.Clear();
+            _randomNumberGenerator = new RandomNumberGenerator<int>();
+            _restartGame.Register(RestartGame);
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
+        }
+
+        private void RestartGame()
         {
             _buildings.Clear();
             _enabledBuildings.Clear();

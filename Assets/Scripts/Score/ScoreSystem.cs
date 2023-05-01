@@ -1,4 +1,5 @@
 ﻿using System;
+using Events;
 using UnityEngine;
 
 namespace Score
@@ -6,11 +7,24 @@ namespace Score
     [CreateAssetMenu(order = 0, fileName = "ScoreSystem", menuName = "ScoreSystem")]
     public class ScoreSystem : ScriptableObject
     {
+        [SerializeField] private BaseEvent _restartGame;
+        [SerializeField] private BaseEvent _gameOver;
+
         private int _score;
-        private int _failedPickups;
         public int Score => _score;
 
         private void OnEnable()
+        {
+            _score = 0;
+            _restartGame.Register(RestartGame);
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
+        }
+
+        private void RestartGame()
         {
             _score = 0;
         }
@@ -22,7 +36,7 @@ namespace Score
 
         public void PickupFailed()
         {
-            _failedPickups++;
+            _gameOver.Fire();
         }
     }
 }

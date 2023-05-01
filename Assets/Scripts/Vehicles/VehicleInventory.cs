@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Building;
+using Events;
 using UnityEngine;
 
 namespace Vehicles
@@ -13,6 +14,7 @@ namespace Vehicles
         [SerializeField] private Vehicle _vehiclePrefabPerson;
         [SerializeField] private Vehicle _vehiclePrefabScooter;
         [SerializeField] private Vehicle _vehiclePrefabVan;
+        [SerializeField] private BaseEvent _restartGame;
 
         public VehicleType PersonType => _vehicleTypes[0];
         public VehicleType ScooterType => _vehicleTypes[1];
@@ -30,6 +32,17 @@ namespace Vehicles
         public event Action VehiclesUpdated;
 
         private void OnEnable()
+        {
+            RestartGame();
+            _restartGame.Register(RestartGame);
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
+        }
+
+        private void RestartGame()
         {
             _vehicles.Clear();
             _vehiclesInRoute.Clear();

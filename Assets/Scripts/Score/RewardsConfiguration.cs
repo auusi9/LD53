@@ -14,6 +14,7 @@ namespace Score
     {
         [SerializeField] private RewardOptions[] _rewardOptions;
         [SerializeField] private BaseEvent _cycleFinished;
+        [SerializeField] private BaseEvent _restartGame;
         [SerializeField] private RouteInventory _routeInventory;
 
         private int _cycle = 0;
@@ -23,6 +24,12 @@ namespace Score
         {
             _cycle = 0;
             _cycleFinished.Register(SumRegister, 0);
+            _restartGame.Register(RestartGame);
+        }
+
+        private void RestartGame()
+        {
+            _cycle = 0;
         }
 
         private void SumRegister()
@@ -62,6 +69,7 @@ namespace Score
         private void OnDisable()
         {
             _cycleFinished.UnRegister(SumRegister);
+            _restartGame.UnRegister(RestartGame);
         }
     }
 

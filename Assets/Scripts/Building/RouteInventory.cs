@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Events;
 using UnityEngine;
 
 namespace Building
@@ -11,6 +12,7 @@ namespace Building
         [SerializeField] private int _initalRoutes = 2;
         [SerializeField] private int _maxRoutes = 8;
         [SerializeField] private Color[] _colors;
+        [SerializeField] private BaseEvent _restartGame;
 
         private List<BuildingRoute> _buildingRoutes = new List<BuildingRoute>();
         private RouteSpawner _routeSpawner;
@@ -24,6 +26,18 @@ namespace Building
         private void OnEnable()
         {
             _buildingRoutes.Clear();
+            _restartGame.Register(RestartGame);
+        }
+
+        private void RestartGame()
+        {
+            _buildingRoutes.Clear();
+            _routeSpawner = null;
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
         }
 
         public void AddRoute(BuildingRoute route)

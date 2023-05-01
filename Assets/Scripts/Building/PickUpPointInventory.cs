@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Events;
 using Score;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,6 +15,7 @@ namespace Building
         [SerializeField] private float _rangeXCycle = 2f;
         [SerializeField] private BuildingInventory _buildingInventory;
         [SerializeField] private RewardsConfiguration _rewardsConfiguration;
+        [SerializeField] private BaseEvent _restartGame;
 
         private List<PickUpPoint> _allPickupPoints = new List<PickUpPoint>();
         private List<PickUpPoint> _enabledPickupPoints = new List<PickUpPoint>();
@@ -24,6 +26,18 @@ namespace Building
         {
             _allPickupPoints.Clear();
             _enabledPickupPoints.Clear();
+            _restartGame.Register(RestartGame);
+        }
+
+        private void RestartGame()
+        {
+            _allPickupPoints.Clear();
+            _enabledPickupPoints.Clear();
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
         }
 
         public void AddPickUpPoint(PickUpPoint pickUpPoint)

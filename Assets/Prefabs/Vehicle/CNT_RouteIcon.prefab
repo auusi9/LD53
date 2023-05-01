@@ -58,7 +58,7 @@ MonoBehaviour:
   - {fileID: 5916404381033269129}
   _minDistance: 0.01
   _pickupDistance: 0.2
-  _checkTime: 0.2
+  _checkTime: 0.12
 --- !u!1 &2898825493216211121
 GameObject:
   m_ObjectHideFlags: 0

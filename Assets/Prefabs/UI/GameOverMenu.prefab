@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6397110954481946792}
   - component: {fileID: 837300016249040300}
   - component: {fileID: 3538446298674190047}
+  - component: {fileID: 6469712018728373722}
   m_Layer: 5
   m_Name: GameOverMenu
   m_TagString: Untagged
@@ -105,6 +106,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 837300016249040300}
+--- !u!114 &6469712018728373722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397110954481946794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f407921f27a64a258cec4a4b5d628ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameOverEvent: {fileID: 11400000, guid: 0cffbde63d83e40489588134ff6ab414, type: 2}
+  _restartGame: {fileID: 11400000, guid: 7e65053c15092be44ab02d278c6a4ffd, type: 2}
+  _scoreSystem: {fileID: 11400000, guid: 44ea57c179fe81a41b1a5815558f69f8, type: 2}
+  _rewardsConfiguration: {fileID: 11400000, guid: 9fe4ccde55eab9f428ea4d5d365fd15f, type: 2}
+  _timeManager: {fileID: 11400000, guid: a9ab0502ad52e594a90dee19a764a45f, type: 2}
+  _weeksText: {fileID: 6614142580909412182}
+  _weeksString: '{0} WEEKS'
+  _scoreText: {fileID: 6614142581624005781}
 --- !u!1 &6397110954872589001
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,10 +998,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 6614142580852517103}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6469712018728373722}
+        m_TargetAssemblyTypeName: UI.GameOverMenu, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &6614142580852517100
 CanvasRenderer:
   m_ObjectHideFlags: 0

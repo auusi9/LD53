@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3006ccbbf82d4f65a95dc78f63d26705, type: 3}
-  m_Name: ScoreSystem
+  m_Script: {fileID: 11500000, guid: dfa971c1c1744af19193e1e5c5da44e2, type: 3}
+  m_Name: RestartGame
   m_EditorClassIdentifier: 
-  _restartGame: {fileID: 11400000, guid: 7e65053c15092be44ab02d278c6a4ffd, type: 2}
-  _gameOver: {fileID: 11400000, guid: 0cffbde63d83e40489588134ff6ab414, type: 2}

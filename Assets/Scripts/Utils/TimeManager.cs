@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Events;
 using UnityEngine;
 
 namespace Utils
@@ -7,6 +9,7 @@ namespace Utils
     public class TimeManager : ScriptableObject
     {
         [SerializeField] private float[] _velocityPresets = new []{1f, 1.25f, 1.5f, 2f};
+        [SerializeField] private BaseEvent _restartGame;
 
         private int _currentVelocityIndex = 0;
 
@@ -16,6 +19,18 @@ namespace Utils
         {
             _currentVelocityIndex = 0;
             _pauseViews.Clear();
+            _restartGame.Register(RestartGame);
+        }
+
+        private void RestartGame()
+        {
+            _currentVelocityIndex = 0;
+            _pauseViews.Clear();
+        }
+
+        private void OnDisable()
+        {
+            _restartGame.UnRegister(RestartGame);
         }
 
         public void NextSpeed()

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: InputHandler
   m_EditorClassIdentifier: 
   _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
+  _restartGame: {fileID: 11400000, guid: 7e65053c15092be44ab02d278c6a4ffd, type: 2}

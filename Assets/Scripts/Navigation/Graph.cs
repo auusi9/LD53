@@ -1,13 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Events;
 using Navigation;
 using UnityEngine;
 
 [CreateAssetMenu(order = 0, fileName = "Graph", menuName = "Navigation/Graph")]
 public class Graph : ScriptableObject
 {
+    [SerializeField] private BaseEvent _restartGame;
+
     private List<GraphNode> _graphNodes = new List<GraphNode>();
     public List<GraphNode> Nodes => _graphNodes;
+
+    private void OnEnable()
+    {
+        _graphNodes.Clear();
+        _restartGame.Register(RestartGame);
+    }
+
+    private void OnDisable()
+    {
+        _restartGame.UnRegister(RestartGame);
+    }
+
+    private void RestartGame()
+    {
+        _graphNodes.Clear();
+    }
 
     public void AddNode(GraphNode graphNode)
     {

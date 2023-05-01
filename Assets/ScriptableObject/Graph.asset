@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f426703a1ab30b94b86ccf9a0c3e7ddf, type: 3}
   m_Name: Graph
   m_EditorClassIdentifier: 
+  _restartGame: {fileID: 11400000, guid: 7e65053c15092be44ab02d278c6a4ffd, type: 2}
