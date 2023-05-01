@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2034473614243037362
 Transform:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3342322194436325628
 Transform:
   m_ObjectHideFlags: 0
@@ -253,7 +253,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.08
+        value: 0.06
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
   _worldLine: {fileID: 7897125934120880613}
   _pointColor: {fileID: 7160262570007667763}
-  _size: 0.035
+  _size: 0.03
 --- !u!1001 &3320488452746157086
 PrefabInstance:
   m_ObjectHideFlags: 0
