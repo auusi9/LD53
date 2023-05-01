@@ -60,6 +60,7 @@ namespace Vehicles
             _moving = true;
             transform.position = _path[0];
             _currentCargo = _vehicleType.CargoSpace;
+            _currentTargetIndex = 0;
         }
 
         private void Update()

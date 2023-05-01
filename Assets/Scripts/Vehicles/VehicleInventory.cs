@@ -39,6 +39,7 @@ namespace Vehicles
             {
                 _vehicles[startingVehicle].Add(Instantiate(_vehiclePrefab, _transform));
                 _vehicles[startingVehicle][^1].SetType(startingVehicle);
+                _vehicles[startingVehicle][^1].gameObject.SetActive(false);
             }
         }
         
@@ -124,6 +125,7 @@ namespace Vehicles
                     _vehiclesInRoute[route].Remove(vehicle);
                     vehicle.StopMoving();
                     vehicle.gameObject.SetActive(false);
+                    _vehicles[vehicleType].Add(vehicle);
                 }
                 VehiclesUpdated?.Invoke();
             }
