@@ -16,6 +16,7 @@ namespace UI
         [SerializeField] private Button _routeButton;
         [SerializeField] private Button _removeRoute;
         [SerializeField] private GameObject _subMenu;
+        [SerializeField] private GameObject _outline;
         [SerializeField] private GameObject _routeDisabled;
         [SerializeField] private GameObject _routeEnabled;
         [SerializeField] private VehicleButton _addPerson;
@@ -84,6 +85,7 @@ namespace UI
             _inputHandler.CancelCreatingRoute();
             _buildingRoute.RemoveRoute();
             _subMenu.SetActive(false);
+            _outline.SetActive(false);
             _removeRoute.gameObject.SetActive(false);
         }
 
@@ -121,11 +123,13 @@ namespace UI
             else if (_buildingRoute.Available)
             {
                 _inputHandler.CreatingRoute(_buildingRoute);
+                _outline.gameObject.SetActive(true);
             }
             else
             {
                 _removeRoute.gameObject.SetActive(true);
                 _subMenu.gameObject.SetActive(true);
+                _outline.gameObject.SetActive(true);
             }
         }
     }
