@@ -4,10 +4,11 @@ namespace UI
 {
     public class DisableWhenClickOutUI: MonoBehaviour
     {
+        [SerializeField] private GameObject _objectReference;
+        
         private bool _stillClicked = false;
         private void OnEnable()
         {
-            
             if (Input.GetMouseButton(0))
             {
                 _stillClicked = true;
@@ -29,7 +30,7 @@ namespace UI
         {
             if (Input.GetMouseButton(0) && gameObject.activeSelf && 
                 !RectTransformUtility.RectangleContainsScreenPoint(
-                    transform as RectTransform, 
+                    _objectReference.transform as RectTransform, 
                     Input.mousePosition, 
                     Camera.main)) {
                 gameObject.SetActive(false);

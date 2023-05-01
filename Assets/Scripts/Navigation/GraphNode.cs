@@ -11,7 +11,6 @@ public class GraphNode : MonoBehaviour
     [SerializeField] private List<GraphSubNode> _subNodes;
     [SerializeField] private List<GraphNode> _siblingNodes;
     [SerializeField] private Graph _graph;
-    [SerializeField] private float _radius = 0.5f;
 
     public List<GraphNode> SiblingNodes => _siblingNodes;
 
@@ -27,12 +26,12 @@ public class GraphNode : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, _radius);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, transform.lossyScale.x / 2);
 
         foreach (var subNode in _subNodes)
         {
-            Gizmos.DrawSphere(subNode.transform.position, 0.1f);
+            Gizmos.DrawSphere(subNode.transform.position, subNode.transform.lossyScale.x);
         }
         
         if(_siblingNodes == null || _siblingNodes.Count == 0)
@@ -63,11 +62,16 @@ public class GraphNode : MonoBehaviour
 
     public float GetRadius()
     {
-        return _radius;
+        return transform.lossyScale.x / 2;
     }
 
-    public GraphSubNode GetAvailablePosition()
+    public GraphSubNode GetPosition(int index)
     {
+        if (_subNodes.Count < index)
+        {
+            return _subNodes[index];
+        }
+        
         GraphSubNode availableSubNode = _subNodes.FirstOrDefault(x => x.Available);
 
         if (availableSubNode == null)
@@ -76,5 +80,17 @@ public class GraphNode : MonoBehaviour
         }
 
         return availableSubNode;
+    }
+
+    public int GetAvailableIndex()
+    {
+        GraphSubNode availableSubNode = _subNodes.FirstOrDefault(x => x.Available);
+
+        if (availableSubNode == null)
+        {
+            return 0;
+        }
+
+        return _subNodes.IndexOf(availableSubNode);
     }
 }

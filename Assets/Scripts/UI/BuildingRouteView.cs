@@ -11,8 +11,11 @@ namespace UI
     public class BuildingRouteView : MonoBehaviour
     {
         [SerializeField] private Image _background;
-        [SerializeField] private Button _createRoute;
+        [SerializeField] private Button _routeButton;
         [SerializeField] private Button _removeRoute;
+        [SerializeField] private GameObject _subMenu;
+        [SerializeField] private GameObject _routeDisabled;
+        [SerializeField] private GameObject _routeEnabled;
         [SerializeField] private VehicleButton _addPerson;
         [SerializeField] private VehicleButton _addScooter;
         [SerializeField] private VehicleButton _addVan;
@@ -27,7 +30,7 @@ namespace UI
         private void Start()
         {
             _removeRoute.onClick.AddListener(ResetPath);
-            _createRoute.onClick.AddListener(CreateRoute);
+            _routeButton.onClick.AddListener(RouteClicked);
             _addPerson.VehicleButtonClicked += AddVehicleClicked;
             _addScooter.VehicleButtonClicked += AddVehicleClicked;
             _addVan.VehicleButtonClicked += AddVehicleClicked;
@@ -39,7 +42,7 @@ namespace UI
         private void OnDestroy()
         {
             _removeRoute.onClick.RemoveListener(ResetPath);
-            _createRoute.onClick.RemoveListener(ResetPath);
+            _routeButton.onClick.RemoveListener(ResetPath);
             _addPerson.VehicleButtonClicked -= AddVehicleClicked;
             _addScooter.VehicleButtonClicked -= AddVehicleClicked;
             _addVan.VehicleButtonClicked -= AddVehicleClicked;
@@ -63,27 +66,43 @@ namespace UI
             _buildingRoute.RemoveRoute();
         }
 
-        public void UpdateRoute(BuildingRoute buildingRoute)
+        public void UpdateRoute(BuildingRoute buildingRoute, bool available, Color color)
         {
             _buildingRoute = buildingRoute;
-            if (buildingRoute == null)
+            _background.color = color;
+
+            if (buildingRoute == null && !available)
             {
-                _createRoute.gameObject.SetActive(true);
+                _routeButton.gameObject.SetActive(false);
                 _background.gameObject.SetActive(false);
+                _routeDisabled.SetActive(true);
+                _routeEnabled.SetActive(false);
+            }
+            else if(available && buildingRoute == null)
+            {
+                _routeDisabled.SetActive(false);
+                _routeEnabled.SetActive(true);
             }
             else
             {
+                _routeDisabled.SetActive(false);
+                _routeEnabled.SetActive(true);
                 _background.color = buildingRoute.Color;
-                _createRoute.gameObject.SetActive(false);
+                _routeButton.gameObject.SetActive(true);
                 _background.gameObject.SetActive(true);
             }
         }
 
-        private void CreateRoute()
+        private void RouteClicked()
         {
             if (_buildingRoute == null)
             {
                 _inputHandler.CreatingRoute();
+            }
+            else
+            {
+                _removeRoute.gameObject.SetActive(true);
+                _subMenu.gameObject.SetActive(true);
             }
         }
     }

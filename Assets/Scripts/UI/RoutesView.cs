@@ -26,7 +26,7 @@ namespace UI
         {
             List<BuildingRoute> buildingRoute = _routeInventory.Routes;
 
-            int moreViews = _buildingRouteViews.Count - _routeInventory.TotalRoutes;
+            int moreViews = _buildingRouteViews.Count - _routeInventory.MaxRoutes;
             
             for (int i = 0; i < moreViews; i++)
             {
@@ -34,7 +34,7 @@ namespace UI
                 viewToRemove.gameObject.SetActive(false);
             }
     
-            while (_buildingRouteViews.Count < _routeInventory.TotalRoutes)
+            while (_buildingRouteViews.Count < _routeInventory.MaxRoutes)
             {
                 BuildingRouteView newView = Instantiate(_buildingRouteViewPrefab, transform);
                 _buildingRouteViews.Add(newView);
@@ -46,11 +46,11 @@ namespace UI
 
                 if (i < buildingRoute.Count)
                 {
-                    _buildingRouteViews[i].UpdateRoute(buildingRoute[i]);
+                    _buildingRouteViews[i].UpdateRoute(buildingRoute[i], true, _routeInventory.GetColor(i));
                 }
                 else
                 {
-                    _buildingRouteViews[i].UpdateRoute(null);
+                    _buildingRouteViews[i].UpdateRoute(null, _routeInventory.TotalRoutes > i, _routeInventory.GetColor(i));
                 }
             }
         }

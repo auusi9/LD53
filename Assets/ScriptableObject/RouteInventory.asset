@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RouteInventory
   m_EditorClassIdentifier: 
   _initalRoutes: 2
+  _maxRoutes: 6
   _colors:
   - {r: 0.1745283, g: 0.18847725, b: 1, a: 1}
   - {r: 1, g: 0.99589145, b: 0.17647058, a: 1}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using geniikw.DataRenderer2D;
 using InputHandling;
 using Navigation;
 using UI;
@@ -15,6 +16,9 @@ namespace Building
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private InputHandler _inputHandler;
         [SerializeField] private RouteInventory _routeInventory;
+        [SerializeField] private WorldLine _worldLine;
+        [SerializeField] private SpriteRenderer _pointColor;
+        [SerializeField] private float _size = 1f;
 
         private bool _navigationCompleted = false;
         private List<Route> _graphPath = new List<Route>();
@@ -29,15 +33,23 @@ namespace Building
         
         public bool IsActive => _navigationCompleted;
         public Color Color => _color;
+        private int _index = 0;
 
         private void Start()
         {
             _routeInventory.AddRoute(this);
+            _worldLine.MakeNewMesh();
         }
 
         private void OnDestroy()
         {
             _routeInventory.RemoveRoute(this);
+
+            if (_building != null)
+            {
+                GraphSubNode graphSubNode = _building.Node.GetPosition(_index);
+                graphSubNode.Empty();
+            }
         }
 
         public void SetColor(Color color)
@@ -50,6 +62,8 @@ namespace Building
                     { new GradientColorKey(_color, 0.0f), new GradientColorKey(_color, 1.0f) },
                 new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) });
             _lineRenderer.colorGradient = gradient;
+            _worldLine.line.option.color = gradient;
+            _pointColor.color = color;
             ColorUpdated?.Invoke(this);
         }
 
@@ -81,7 +95,7 @@ namespace Building
                 {
                     if (_graphPath.Count == 0)
                     {
-                        _graphPath.Add(new Route(_building.Node));
+                        _graphPath.Add(new Route(_building.Node, _index));
                         _lastNode = _building.Node;
                     }
                     
@@ -112,7 +126,7 @@ namespace Building
                             }
                             else if (_lastNode.SiblingNodes.Contains(graphNode) && (_graph.IsPositionInsideNode(mousePosition, graphNode) || !_edgePosition.Contains(_lastNode)))
                             {
-                                _graphPath.Add(new Route(graphNode));
+                                _graphPath.Add(new Route(graphNode, _index));
                                 _lastNode = graphNode;
                             }
                         }
@@ -122,9 +136,10 @@ namespace Building
                         _lastNode.SiblingNodes.Contains(_building.Node))
                     {
                         _navigationCompleted = true;
-                        _graphPath.Add(new Route(_building.Node));
+                        _graphPath.Add(new Route(_building.Node, _index));
                         NewRouteCreated?.Invoke(this);
                         _inputHandler.RouteCreated();
+                        _selected = false;
                     }
                 }
                 UpdateLineRenderer();
@@ -155,13 +170,34 @@ namespace Building
                 array[^1] = _edgePosition.Position;
             }
 
+            int morePoints = _worldLine.line.Count - size;
+            
+            for (int i = 0; i < morePoints; i++)
+            {
+                _worldLine.line.Pop();
+            }
+    
+            while (_worldLine.line.Count < size)
+            {
+                _worldLine.line.Push();
+            }
+    
+            for (int i = 0; i < _worldLine.line.Count; i++)
+            {
+                _worldLine.line.EditPoint(i, array[i], _size);
+            }
+            
             _lineRenderer.positionCount = array.Length;
             _lineRenderer.SetPositions(array);
+            transform.position = array[0];
         }
 
         public void SetBuilding(Building building)
         {
             _building = building;
+            _index = _building.Node.GetAvailableIndex();
+            GraphSubNode graphSubNode = _building.Node.GetPosition(_index);
+            graphSubNode.Fill();
         }
 
         public List<Vector3> GetPath()
@@ -182,11 +218,10 @@ namespace Building
 
             public Vector3 Position => GraphSubNode.transform.position;
 
-            public Route(GraphNode graphNode)
+            public Route(GraphNode graphNode, int index)
             {
                 GraphNode = graphNode;
-                GraphSubNode = graphNode.GetAvailablePosition();
-                GraphSubNode.Fill();
+                GraphSubNode = graphNode.GetPosition(index);
             }
 
             public override bool Equals(object obj)

@@ -8,6 +8,7 @@ namespace Building
     public class RouteInventory : ScriptableObject
     {
         [SerializeField] private int _initalRoutes = 2;
+        [SerializeField] private int _maxRoutes = 8;
         [SerializeField] private Color[] _colors;
 
         private List<BuildingRoute> _buildingRoutes = new List<BuildingRoute>();
@@ -18,6 +19,8 @@ namespace Building
         private int _availableRoutes = 0;
 
         public int TotalRoutes => _buildingRoutes.Count + _availableRoutes;
+
+        public int MaxRoutes => _maxRoutes;
 
         private void OnEnable()
         {
@@ -48,6 +51,11 @@ namespace Building
             _buildingRoutes.Remove(route);
             _availableRoutes++;
             RoutesUpdated?.Invoke();
+        }
+
+        public Color GetColor(int i)
+        {
+            return _colors[i];
         }
     }
 }
