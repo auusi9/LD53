@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 8052808341371502158}
   - component: {fileID: 4977096579519948434}
   - component: {fileID: 5091615209929140699}
+  - component: {fileID: 8922005737457443376}
   m_Layer: 5
   m_Name: BTN_Plus
   m_TagString: Untagged
@@ -413,7 +414,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3091123378899033239}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -446,10 +447,24 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4977096579519948434}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8922005737457443376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3091123378899033239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe5a7ed59b9483b8b3884c756cfad6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vehicleType: {fileID: 0}
+  _button: {fileID: 5091615209929140699}
 --- !u!1 &3351476771078639387
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +630,7 @@ GameObject:
   - component: {fileID: 9201466769722602792}
   - component: {fileID: 919658316262660242}
   - component: {fileID: 6460144542130666514}
+  - component: {fileID: 7167178592441766050}
   m_Layer: 5
   m_Name: BTN_Less
   m_TagString: Untagged
@@ -688,7 +704,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4907811747846131567}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -725,6 +741,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7167178592441766050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907811747846131567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe5a7ed59b9483b8b3884c756cfad6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vehicleType: {fileID: 0}
+  _button: {fileID: 6460144542130666514}
 --- !u!1 &7353515515074977044
 GameObject:
   m_ObjectHideFlags: 0
