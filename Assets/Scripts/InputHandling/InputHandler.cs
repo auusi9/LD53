@@ -1,4 +1,5 @@
 ﻿using System;
+using Building;
 using UnityEngine;
 
 namespace InputHandling
@@ -6,45 +7,40 @@ namespace InputHandling
     [CreateAssetMenu(order = 0, fileName = "InputHandler", menuName = "Input/InputHandler")]
     public class InputHandler : ScriptableObject
     {
-        private bool _editingRoute = false;
-        private Building.Building _selectedBuilding = null;
-
-        public Action<Building.Building> OnBuildingSelected;
-
+        private bool _creatingRoute = false;
+        private BuildingRoute _editingRoute = null;
+        
         private void OnEnable()
         {
-            _editingRoute = false;
-            _selectedBuilding = null;
+            _creatingRoute = false;
+            _editingRoute = null;
         }
 
         public void BuildingSelected(Building.Building building)
         {
-            if(_editingRoute || building == null)
-                return;
+            if (_creatingRoute)
+            {
+                _editingRoute = building.CreateNewRoute();
+            }
+        }
 
-            DeselectBuilding();
-            _selectedBuilding = building;
-            building.Select();
-            OnBuildingSelected?.Invoke(building);
+        public void CancelCreatingRoute()
+        {
+            if (_editingRoute)
+            {
+                _editingRoute.RemoveRoute();
+            }
         }
         
-        public void DeselectBuilding()
+        public void CreatingRoute()
         {
-            if(_editingRoute || _selectedBuilding == null)
-                return;
-
-            _selectedBuilding.Deselect();
-            _selectedBuilding = null;
+            _creatingRoute = true;
         }
 
-        public void EditingRoute()
+        public void RouteCreated()
         {
-            _editingRoute = true;
-        }
-
-        public void FinishedEditingRoute()
-        {
-            _editingRoute = false;
+            _creatingRoute = false;
+            _editingRoute = null;
         }
     }
 }

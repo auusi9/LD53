@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7147627124286010022}
   - component: {fileID: 7147627124286010017}
   m_Layer: 0
-  m_Name: Building
+  m_Name: PostCentral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +102,8 @@ MonoBehaviour:
   _buildingRoutes: []
   _buildingRoutePrefab: {fileID: 3950016365299011181, guid: cffc1152a45ed4e45afaeb40e7676cd9, type: 3}
   _inputHandler: {fileID: 11400000, guid: 6be6a38193cd2394199ab9bd085339e5, type: 2}
+  _vehicleInventory: {fileID: 11400000, guid: 78111864edee07044840aab9bf005aca, type: 2}
+  _buildingInventory: {fileID: 11400000, guid: 860699fd46a6d54418c6a0a1eb5deae3, type: 2}
 --- !u!1001 &7147627124510090992
 PrefabInstance:
   m_ObjectHideFlags: 0
