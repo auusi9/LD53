@@ -81,6 +81,7 @@ namespace UI
 
         private void ResetPath()
         {
+            _inputHandler.CancelCreatingRoute();
             _buildingRoute.RemoveRoute();
             _subMenu.SetActive(false);
             _removeRoute.gameObject.SetActive(false);

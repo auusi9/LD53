@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 112666910609348322}
   - component: {fileID: 1405332183931188734}
   - component: {fileID: 7897125934120880613}
+  - component: {fileID: 743003932222201623}
   m_Layer: 0
   m_Name: LineTMP
   m_TagString: Untagged
@@ -165,6 +166,17 @@ MonoBehaviour:
         m_NumAlphaKeys: 2
       jointOption: 0
   useUpdate: 0
+--- !u!210 &743003932222201623
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523511495043128824}
+  m_Enabled: 1
+  m_SortingLayerID: -257037989
+  m_SortingLayer: 2
+  m_SortingOrder: 0
 --- !u!1 &5849855358885911441
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,9 +247,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingLayerID: -257037989
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Positions:
   - {x: 0.7, y: -1.28, z: 0}
   - {x: 0.5, y: -1.28, z: 0}

@@ -12,6 +12,7 @@ namespace Building
         [SerializeField] private List<GameObject> _packages;
         [SerializeField] private PickUpPointInventory _pickUpPointInventory;
         [SerializeField] private ScoreSystem _scoreSystem;
+        [SerializeField] private SpriteRenderer _fillImage;
 
         private float _currentTimePackageTime = 0f;
         private float _currentTimeMaxWaitTime = 0f;
@@ -46,7 +47,9 @@ namespace Building
             {
                 _currentTimeMaxWaitTime = 0f;
             }
-
+            
+            _fillImage.material.SetInt("_Arc2", (int)((1 - (_currentTimeMaxWaitTime / _maxWaitTime)) * 360));
+            
             if (_currentTimeMaxWaitTime >= _maxWaitTime)
             {
                 _scoreSystem.PickupFailed();

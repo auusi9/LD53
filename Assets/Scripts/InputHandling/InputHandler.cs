@@ -43,8 +43,10 @@ namespace InputHandling
         {
             if (_editingRoute)
             {
+                _routeCreated = false;
                 _editingRoute.RemoveRoute();
                 _editingRoute = null;
+                _creatingRoute = false;
             }
         }
         

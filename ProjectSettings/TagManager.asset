@@ -41,6 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Buildings
+    uniqueID: 970751407
+    locked: 0
+  - name: Lines
+    uniqueID: 4037929307
+    locked: 0
+  - name: Vehicles
+    uniqueID: 3509456993
+    locked: 0
+  - name: Markers
+    uniqueID: 2617572267
+    locked: 0
   - name: Debug
     uniqueID: 3170874681
     locked: 0

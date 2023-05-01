@@ -40,6 +40,8 @@ namespace Building
         {
             _routeInventory.AddRoute(this);
             _worldLine.MakeNewMesh();
+            _worldLine.gameObject.SetActive(true);
+            _lineRenderer.gameObject.SetActive(false);
         }
 
         private void OnDestroy()
@@ -75,6 +77,8 @@ namespace Building
             _lineRenderer.positionCount = 0;
             _worldLine.line.Clear();
             RouteReseted?.Invoke(this);
+            _worldLine.gameObject.SetActive(true);
+            _lineRenderer.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -129,6 +133,8 @@ namespace Building
                         NewRouteCreated?.Invoke(this);
                         _inputHandler.RouteCreated();
                         _selected = false;
+                        _worldLine.gameObject.SetActive(false);
+                        _lineRenderer.gameObject.SetActive(true);
                     }
                 }
                 UpdateLineRenderer();
