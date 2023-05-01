@@ -14,6 +14,7 @@ namespace Building
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private BuildingInventory _buildingInventory;
         [SerializeField] private bool _enableOnStart;
+        [SerializeField] private GameObject _tutorial;
 
         public event Action<BuildingRoute> NewBuildingRoute;
         public event Action<BuildingRoute> BuildingRouteDestroyed;
@@ -55,6 +56,9 @@ namespace Building
             buildingRoute.SelectPath();
             NewBuildingRoute?.Invoke(buildingRoute);
             _vehicleInventory.NewBuildingRoute(buildingRoute);
+            
+            if(_tutorial.activeSelf)
+                _tutorial.SetActive(false);
 
             return buildingRoute;
         }
@@ -68,6 +72,11 @@ namespace Building
         public void Enabled()
         {
             _enabled = true;
+            
+            if (_buildingInventory.EnabledBuildings >= 1)
+            {
+                _tutorial.SetActive(true);
+            }
         }
     }
 }

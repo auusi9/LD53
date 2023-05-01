@@ -16,6 +16,8 @@ namespace Building
         private List<Building> _enabledBuildings = new List<Building>();
         private RandomNumberGenerator<int> _randomNumberGenerator = new RandomNumberGenerator<int>();
 
+        public int EnabledBuildings => _enabledBuildings.Count;
+
         private void OnEnable()
         {
             _buildings.Clear();
