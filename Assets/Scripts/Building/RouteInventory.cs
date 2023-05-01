@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Building
@@ -17,13 +18,11 @@ namespace Building
         public event Action RoutesUpdated;
         public List<BuildingRoute> Routes => _buildingRoutes;
 
-        private int _availableRoutes = 0;
         
         public int MaxRoutes => _maxRoutes;
 
         private void OnEnable()
         {
-            _availableRoutes = _initalRoutes;
             _buildingRoutes.Clear();
         }
 
@@ -59,7 +58,7 @@ namespace Building
         public void SetSpawner(RouteSpawner routeSpawner)
         {
             _routeSpawner = routeSpawner;
-            for (int i = 0; i < _availableRoutes; i++)
+            for (int i = 0; i < _initalRoutes; i++)
             {
                 _routeSpawner.GetBuildingRoute();
             }
@@ -69,6 +68,14 @@ namespace Building
         {
             buildingRoute.transform.SetParent(_routeSpawner.transform);
             buildingRoute.gameObject.SetActive(false);
+        }
+
+        public void GiveExtraLine()
+        {
+            if(_buildingRoutes.Count >= _maxRoutes)
+                return;
+
+            _routeSpawner.GetBuildingRoute();
         }
     }
 }

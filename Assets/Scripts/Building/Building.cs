@@ -30,6 +30,8 @@ namespace Building
             _buildingInventory.AddBuilding(this);
             if(_enableOnStart)
                 _buildingInventory.EnableBuilding(this);
+            _enabled = _enableOnStart;
+            gameObject.SetActive(_enabled);
         }
 
         private void OnDestroy()

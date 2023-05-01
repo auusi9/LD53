@@ -14,6 +14,8 @@ namespace Building
         private void OnEnable()
         {
             _buildings.Clear();
+            _enabledBuildings.Clear();
+            _randomNumberGenerator = new RandomNumberGenerator<int>();
         }
 
         public void AddBuilding(Building pickUpPoint)
@@ -36,6 +38,7 @@ namespace Building
         {
             _enabledBuildings.Add(building);
             building.Enabled();
+            building.gameObject.SetActive(true);
             _randomNumberGenerator.Add(_enabledBuildings.Count, _enabledBuildings.Count - 1);
         }
 

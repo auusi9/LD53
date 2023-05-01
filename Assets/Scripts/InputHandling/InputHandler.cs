@@ -7,7 +7,6 @@ namespace InputHandling
     [CreateAssetMenu(order = 0, fileName = "InputHandler", menuName = "Input/InputHandler")]
     public class InputHandler : ScriptableObject
     {
-        [SerializeField] private RouteInventory _routeInventory;
         private bool _creatingRoute = false;
         private BuildingRoute _editingRoute = null;
         private bool _routeCreated = false;

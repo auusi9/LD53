@@ -5337,7 +5337,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4028989079614163422, guid: 2f27a68e88f0642418fe688a97ffd7e9, type: 3}
       propertyPath: _enableOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4825789987312311136, guid: 2f27a68e88f0642418fe688a97ffd7e9, type: 3}
       propertyPath: m_Name
@@ -5345,7 +5345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4825789987312311136, guid: 2f27a68e88f0642418fe688a97ffd7e9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4825789987312311143, guid: 2f27a68e88f0642418fe688a97ffd7e9, type: 3}
       propertyPath: m_RootOrder

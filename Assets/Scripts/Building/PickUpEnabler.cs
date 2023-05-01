@@ -24,6 +24,11 @@ namespace Building
             _timeNextPickup = Random.Range(_minTimePickupPoint, _maxTimePickupPoint);
         }
 
+        private void OnDestroy()
+        {
+            _cycleFinished.UnRegister(CycleFinished);
+        }
+
         private void CycleFinished()
         {
             StartCoroutine(EnableBuildingAfterTime());

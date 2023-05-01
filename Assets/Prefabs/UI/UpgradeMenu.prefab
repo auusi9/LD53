@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1798538204436947393}
   - component: {fileID: 1258329383958347491}
   - component: {fileID: 7844557725865569780}
+  - component: {fileID: 6988373955324373758}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -87,7 +88,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3847982282340252589}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -124,6 +125,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6988373955324373758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3847982282340252589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe0a3387db74ac8a8e2d9a845e7605d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExtraLine: 0
+  _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+  _quantityText: {fileID: 3957687717622984689}
+  _vehicleInventory: {fileID: 11400000, guid: 78111864edee07044840aab9bf005aca, type: 2}
+  _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
+  _button: {fileID: 7844557725865569780}
 --- !u!1 &3847982282440169541
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,6 +269,9 @@ GameObject:
   - component: {fileID: 3957687716967677383}
   - component: {fileID: 3957687716967677401}
   - component: {fileID: 3957687716967677382}
+  - component: {fileID: 2025556477595838741}
+  - component: {fileID: 7328831495124222146}
+  - component: {fileID: 6859128118735911857}
   m_Layer: 5
   m_Name: UpgradeMenu
   m_TagString: Untagged
@@ -316,6 +338,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2025556477595838741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687716967677380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9754ed9f5c88477cbd63f843d4234122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeManager: {fileID: 11400000, guid: a9ab0502ad52e594a90dee19a764a45f, type: 2}
+  _cycleFinished: {fileID: 11400000, guid: 79722ce9b143d7e48b04ad230d483b5c, type: 2}
+  _lineReward: {fileID: 4773472834462917755}
+  _personReward: {fileID: 6988373955324373758}
+  _scooterReward: {fileID: 599239197512139662}
+  _vanReward: {fileID: 6995667619803990100}
+  _rewardsConfiguration: {fileID: 11400000, guid: 9fe4ccde55eab9f428ea4d5d365fd15f, type: 2}
+--- !u!225 &7328831495124222146
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687716967677380}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &6859128118735911857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687716967677380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa4f56ee2be84db0ad13c67a009b8c54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 7328831495124222146}
 --- !u!1 &3957687717000071749
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +394,7 @@ GameObject:
   - component: {fileID: 3957687717000071769}
   - component: {fileID: 3957687717000071750}
   - component: {fileID: 3957687717000071751}
+  - component: {fileID: 4773472834462917755}
   m_Layer: 5
   m_Name: Item (3)
   m_TagString: Untagged
@@ -402,7 +469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3957687717000071749}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -439,6 +506,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4773472834462917755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687717000071749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe0a3387db74ac8a8e2d9a845e7605d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExtraLine: 1
+  _vehicleType: {fileID: 0}
+  _quantityText: {fileID: 0}
+  _vehicleInventory: {fileID: 11400000, guid: 78111864edee07044840aab9bf005aca, type: 2}
+  _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
+  _button: {fileID: 3957687717000071751}
 --- !u!1 &3957687717100599058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,13 +1107,14 @@ GameObject:
   - component: {fileID: 3957687717486250512}
   - component: {fileID: 3957687717486250513}
   - component: {fileID: 3957687717486250526}
+  - component: {fileID: 6995667619803990100}
   m_Layer: 5
   m_Name: Item (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3957687717486250527
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1047,9 +1133,9 @@ RectTransform:
   m_Father: {fileID: 3957687717642750010}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 330, y: -100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3957687717486250512
@@ -1097,7 +1183,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3957687717486250524}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1134,6 +1220,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6995667619803990100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687717486250524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe0a3387db74ac8a8e2d9a845e7605d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExtraLine: 0
+  _vehicleType: {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
+  _quantityText: {fileID: 3957687718855633332}
+  _vehicleInventory: {fileID: 11400000, guid: 78111864edee07044840aab9bf005aca, type: 2}
+  _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
+  _button: {fileID: 3957687717486250526}
 --- !u!1 &3957687717584568976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,6 +2012,7 @@ GameObject:
   - component: {fileID: 3957687717963172030}
   - component: {fileID: 3957687717963172031}
   - component: {fileID: 3957687717963172028}
+  - component: {fileID: 599239197512139662}
   m_Layer: 5
   m_Name: Item (2)
   m_TagString: Untagged
@@ -1983,7 +2088,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3957687717963172026}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2020,6 +2125,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &599239197512139662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957687717963172026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fe0a3387db74ac8a8e2d9a845e7605d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExtraLine: 0
+  _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
+  _quantityText: {fileID: 3957687718333658429}
+  _vehicleInventory: {fileID: 11400000, guid: 78111864edee07044840aab9bf005aca, type: 2}
+  _routeInventory: {fileID: 11400000, guid: bcfc8de539e07aa44b966e220ae06f88, type: 2}
+  _button: {fileID: 3957687717963172028}
 --- !u!1 &3957687718199519735
 GameObject:
   m_ObjectHideFlags: 0
