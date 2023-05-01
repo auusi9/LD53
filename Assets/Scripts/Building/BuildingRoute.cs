@@ -76,11 +76,6 @@ namespace Building
         public void ResetPath()
         {
             _navigationCompleted = false;
-
-            foreach (var path in _graphPath)
-            {
-                path.GraphSubNode.Empty();
-            }
             
             _graphPath.Clear();
             _lineRenderer.positionCount = 0;
@@ -120,7 +115,6 @@ namespace Building
                             if (_graphPath.Count > 1 && _edgePosition.Contains(_graphPath[^2].GraphNode))
                             {
                                 int i = _graphPath.Count - 1;
-                                _graphPath[i].GraphSubNode.Empty();
                                 _graphPath.RemoveAt(i);
                                 _lastNode = _graphPath[^1].GraphNode;
                             }

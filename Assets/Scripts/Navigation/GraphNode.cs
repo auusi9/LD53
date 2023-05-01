@@ -67,7 +67,7 @@ public class GraphNode : MonoBehaviour
 
     public GraphSubNode GetPosition(int index)
     {
-        if (_subNodes.Count < index)
+        if (_subNodes.Count > index)
         {
             return _subNodes[index];
         }

@@ -16,6 +16,7 @@ namespace Building
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private BuildingInventory _buildingInventory;
         [SerializeField] private bool _enableOnStart;
+        [SerializeField] private float _range = 10f;
 
         public event Action<BuildingRoute> NewBuildingRoute;
         public event Action<BuildingRoute> BuildingRouteDestroyed;
@@ -23,6 +24,8 @@ namespace Building
         private bool _enabled = false;
 
         public bool Active => _enabled;
+
+        public float Range => _range;
         
         public GraphNode Node => _thisNode;
         public List<BuildingRoute> BuildingRoutes => _buildingRoutes;
