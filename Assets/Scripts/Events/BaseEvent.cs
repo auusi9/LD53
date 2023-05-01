@@ -19,6 +19,11 @@ namespace Events
             _listeners.Add(listener);
         }
 
+        public void Register(Action listener, int index)
+        {
+            _listeners.Insert(index, listener);
+        }
+
         public void UnRegister(Action listener)
         {
             _listeners.Remove(listener);

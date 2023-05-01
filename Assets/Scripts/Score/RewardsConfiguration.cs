@@ -22,7 +22,7 @@ namespace Score
         private void OnEnable()
         {
             _cycle = 0;
-            _cycleFinished.Register(SumRegister);
+            _cycleFinished.Register(SumRegister, 0);
         }
 
         private void SumRegister()
