@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxWaitTime: 30
-  _nextPackageTime: 15
+  _nextPackageTime: 18
   _packages:
   - {fileID: 62492429185893807}
   - {fileID: 1149553096341300470}
