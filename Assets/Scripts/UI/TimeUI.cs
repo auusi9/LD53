@@ -39,6 +39,7 @@ namespace UI
         public void SpeedGame()
         {
             _timeManager.NextSpeed();
+            _timeManager.ResumeGame(GetHashCode());
             _pauseImage.color = _deactivatedColor;
             _playImage.color = _deactivatedColor;
             _forwardImage.color = _selectedColor;

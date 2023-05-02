@@ -89,6 +89,10 @@ namespace Building
             {
                 _tutorial1.SetActive(true);
             }
+            else
+            {
+                _tutorial1.SetActive(false);
+            }
         }
     }
 }

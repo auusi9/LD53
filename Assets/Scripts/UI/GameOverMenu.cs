@@ -32,6 +32,9 @@ namespace UI
 
         private void GameOver()
         {
+            if(gameObject.activeSelf)
+                return;
+            
             _timeManager.PauseGame(GetHashCode());
             gameObject.SetActive(true);
             _weeksText.text = string.Format(_weeksString, _rewardsConfiguration.CurrentCycle);

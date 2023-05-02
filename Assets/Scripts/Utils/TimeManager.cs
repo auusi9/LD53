@@ -35,13 +35,8 @@ namespace Utils
 
         public void NextSpeed()
         {
-            _currentVelocityIndex++;
+            _currentVelocityIndex = 1;
 
-            if (_currentVelocityIndex >= _velocityPresets.Length)
-            {
-                _currentVelocityIndex = 0;
-            }
-            
             SetCurrentSpeed();
         }
 

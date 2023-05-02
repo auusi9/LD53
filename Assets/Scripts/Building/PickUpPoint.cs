@@ -32,14 +32,10 @@ namespace Building
             {
                 package.SetActive(false);
             }
-        }
-
-        private void OnEnable()
-        {
+            
             if (TutorialManager.Get().TutorialActive && TutorialManager.Get().CurrentStep == 1)
             {
                 _tutorial.SetActive(true);
-                TutorialManager.Get().StepFinished += ShowTutorial;
             }
             else if (TutorialManager.Get().TutorialActive && TutorialManager.Get().CurrentStep < 1)
             {
@@ -55,7 +51,6 @@ namespace Building
             }
             else if(obj > 1)
             {
-                TutorialManager.Get().StepFinished -= ShowTutorial;
                 _tutorial.SetActive(false);
             }
         }
@@ -63,6 +58,7 @@ namespace Building
         private void OnDestroy()
         {
             _pickUpPointInventory.RemovePickUpPoint(this);
+            TutorialManager.Get().StepFinished -= ShowTutorial;
         }
 
         private void Update()
