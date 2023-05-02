@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Score;
 using UnityEngine;
+using Utils;
 
 namespace Building
 {
@@ -13,6 +14,7 @@ namespace Building
         [SerializeField] private PickUpPointInventory _pickUpPointInventory;
         [SerializeField] private ScoreSystem _scoreSystem;
         [SerializeField] private SpriteRenderer _fillImage;
+        [SerializeField] private GameObject _tutorial;
 
         private float _currentTimePackageTime = 0f;
         private float _currentTimeMaxWaitTime = 0f;
@@ -29,6 +31,32 @@ namespace Building
             foreach (var package in _packages)
             {
                 package.SetActive(false);
+            }
+        }
+
+        private void OnEnable()
+        {
+            if (TutorialManager.Get().TutorialActive && TutorialManager.Get().CurrentStep == 1)
+            {
+                _tutorial.SetActive(true);
+                TutorialManager.Get().StepFinished += ShowTutorial;
+            }
+            else if (TutorialManager.Get().TutorialActive && TutorialManager.Get().CurrentStep < 1)
+            {
+                TutorialManager.Get().StepFinished += ShowTutorial;
+            }
+        }
+
+        private void ShowTutorial(int obj)
+        {
+            if (obj == 1)
+            {
+                _tutorial.SetActive(true);
+            }
+            else if(obj > 1)
+            {
+                TutorialManager.Get().StepFinished -= ShowTutorial;
+                _tutorial.SetActive(false);
             }
         }
 

@@ -6,6 +6,7 @@ using InputHandling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using Vehicles;
 
 namespace UI
@@ -30,6 +31,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _vanCountText;
         [SerializeField] private VehicleInventory _vehicleInventory;
         [SerializeField] private InputHandler _inputHandler;
+        [SerializeField] private GameObject _tutorial;
 
         private BuildingRoute _buildingRoute;
         
@@ -44,6 +46,15 @@ namespace UI
             _removeScooter.VehicleButtonClicked += RemoveVehicleClicked;
             _removeVan.VehicleButtonClicked += RemoveVehicleClicked;
             _vehicleInventory.VehiclesUpdated += VehiclesUpdated;
+            TutorialManager.Get().StepFinished += StepFinished;
+        }
+
+        private void StepFinished(int step)
+        {
+            if (step == 2 && _buildingRoute != null && !_buildingRoute.Available)
+            {
+                _tutorial.SetActive(true);
+            }
         }
 
         private void VehiclesUpdated()
@@ -68,6 +79,7 @@ namespace UI
             _removeScooter.VehicleButtonClicked -= RemoveVehicleClicked;
             _removeVan.VehicleButtonClicked -= RemoveVehicleClicked;
             _vehicleInventory.VehiclesUpdated -= VehiclesUpdated;
+            TutorialManager.Get().StepFinished -= StepFinished;
         }
 
         private void AddVehicleClicked(VehicleType vehicleType)
@@ -130,6 +142,12 @@ namespace UI
                 _removeRoute.gameObject.SetActive(true);
                 _subMenu.gameObject.SetActive(true);
                 _outline.gameObject.SetActive(true);
+
+                if (_tutorial.activeSelf)
+                {
+                    TutorialManager.Get().NextStep();
+                    _tutorial.SetActive(false);
+                }
             }
         }
     }

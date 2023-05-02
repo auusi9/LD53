@@ -135,6 +135,7 @@ namespace Building
                         _selected = false;
                         _worldLine.gameObject.SetActive(false);
                         _lineRenderer.gameObject.SetActive(true);
+                        _building.RouteFinished();
                     }
                 }
                 UpdateLineRenderer();
