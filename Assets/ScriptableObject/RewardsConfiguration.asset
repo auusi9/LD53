@@ -18,14 +18,28 @@ MonoBehaviour:
     - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
       _quantity: 1
     _minCycle: 0
-    _maxCycle: 10
+    _maxCycle: 3
+  - _includeRoute: 1
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+      _quantity: 2
+    _minCycle: 2
+    _maxCycle: 7
+  - _includeRoute: 0
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+      _quantity: 2
+    - _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
+      _quantity: 1
+    _minCycle: 2
+    _maxCycle: -1
   - _includeRoute: 1
     _options:
     - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
       _quantity: 2
     - _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
       _quantity: 1
-    _minCycle: 0
+    _minCycle: 3
     _maxCycle: -1
   - _includeRoute: 1
     _options:
@@ -33,15 +47,37 @@ MonoBehaviour:
       _quantity: 3
     - _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
       _quantity: 2
-    _minCycle: 3
+    _minCycle: 4
     _maxCycle: -1
   - _includeRoute: 0
     _options:
     - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
-      _quantity: 2
+      _quantity: 3
     - _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
+      _quantity: 2
+    _minCycle: 4
+    _maxCycle: -1
+  - _includeRoute: 1
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
       _quantity: 1
-    _minCycle: 3
+    _minCycle: 6
+    _maxCycle: -1
+  - _includeRoute: 0
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+      _quantity: 3
+    - _vehicleType: {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
+      _quantity: 1
+    _minCycle: 6
+    _maxCycle: -1
+  - _includeRoute: 1
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: f645fa7e6d86bf84d8afe4b5ffd1504e, type: 2}
+      _quantity: 2
+    - _vehicleType: {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
+      _quantity: 1
+    _minCycle: 6
     _maxCycle: -1
   - _includeRoute: 0
     _options:
@@ -51,7 +87,13 @@ MonoBehaviour:
       _quantity: 2
     - _vehicleType: {fileID: 11400000, guid: aa73af609099d3f4394cc3eaa72eca97, type: 2}
       _quantity: 1
-    _minCycle: 10
+    _minCycle: 6
+    _maxCycle: -1
+  - _includeRoute: 1
+    _options:
+    - _vehicleType: {fileID: 11400000, guid: fcd60920c5e8b104b9336a52f627bb5e, type: 2}
+      _quantity: 3
+    _minCycle: 5
     _maxCycle: -1
   _cycleFinished: {fileID: 11400000, guid: 79722ce9b143d7e48b04ad230d483b5c, type: 2}
   _restartGame: {fileID: 11400000, guid: 7e65053c15092be44ab02d278c6a4ffd, type: 2}
