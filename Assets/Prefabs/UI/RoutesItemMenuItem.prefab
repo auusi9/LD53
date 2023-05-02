@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 4951105160291215260}
   - component: {fileID: 4203286195683960940}
   m_Layer: 5
-  m_Name: IMG_IconPlus
+  m_Name: CNT_Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 8922005737457443376}
   - component: {fileID: 8046835973915008843}
   - component: {fileID: 8722874477838523008}
+  - component: {fileID: 5825533234111090783}
   m_Layer: 5
   m_Name: BTN_Plus
   m_TagString: Untagged
@@ -428,7 +429,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -591,6 +592,26 @@ MonoBehaviour:
   _buttonAudioSource: {fileID: 8046835973915008843}
   _hoverButtonAudio: {fileID: 8300000, guid: a43d28a22d240314fb5942d84f486c9b, type: 3}
   _pressButtonAudio: {fileID: 8300000, guid: 989cd7fb146c3fc41bade42c84dc8941, type: 3}
+--- !u!95 &5825533234111090783
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3091123378899033239}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c1ff3718e4c7b541af8097b302538fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3351476771078639387
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +703,7 @@ GameObject:
   - component: {fileID: 7167178592441766050}
   - component: {fileID: 2311688776482989183}
   - component: {fileID: 6313388383348613089}
+  - component: {fileID: 4322224568064035859}
   m_Layer: 5
   m_Name: BTN_Less
   m_TagString: Untagged
@@ -767,7 +789,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -930,6 +952,26 @@ MonoBehaviour:
   _buttonAudioSource: {fileID: 2311688776482989183}
   _hoverButtonAudio: {fileID: 8300000, guid: a43d28a22d240314fb5942d84f486c9b, type: 3}
   _pressButtonAudio: {fileID: 8300000, guid: cda790f27b136e04d9ca96eabf0f67df, type: 3}
+--- !u!95 &4322224568064035859
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4907811747846131567}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c1ff3718e4c7b541af8097b302538fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8490476700900951698
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +984,7 @@ GameObject:
   - component: {fileID: 3901748323089449261}
   - component: {fileID: 8010917055439865493}
   m_Layer: 5
-  m_Name: IMG_IconLess
+  m_Name: CNT_Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
